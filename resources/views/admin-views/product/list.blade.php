@@ -190,10 +190,10 @@
                                     {{translate(str_replace('_',' ',$p['product_type']))}}
                                 </td>
                                 <td class="text-right">
-                                    {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($p['purchase_price']))}}
+                                    {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($p['purchase_price'])) !!}
                                 </td>
                                 <td class="text-right">
-                                    {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($p['unit_price']))}}
+                                    {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($p['unit_price'])) !!}
                                 </td>
                                 <td class="text-center">
 

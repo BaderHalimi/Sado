@@ -349,7 +349,7 @@
                                                             @if($color->color != null)
                                                                 @php 
                                                                     $theme_image = $color->theme_image;
-                                                                    $color = '#'.$color->color;
+                                                                    $color = $color->color;
                                                                 @endphp
                                                                 {{-- @php
                                                                     $color = \App\Model\Color::where('code', '#'.$color->color)->first();

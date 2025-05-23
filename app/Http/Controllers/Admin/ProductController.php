@@ -178,18 +178,31 @@ class ProductController extends BaseController
 
         $product_images = [];
         if ($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0) {
+            $color_image_serial = [];
             foreach ($request->colors as $color) {
                 $color_ = str_replace('#', '', $color);
-                $img = 'color_image_' . $color_;
+                $img = 'color_image_' . $color_;      // صورة المنتج
+                $theme_img = 'image_' . $color_;      // صورة اللون نفسها
+
+                $image_name = null;
+                $theme_name = null;
+
                 if ($request->file($img)) {
                     $image_name = ImageManager::upload('product/', 'webp', $request->file($img));
                     $product_images[] = $image_name;
-                    $color_image_serial[] = [
-                        'color' => $color_,
-                        'image_name' => $image_name,
-                    ];
                 }
+
+                if ($request->file($theme_img)) {
+                    $theme_name = ImageManager::upload('product/color-theme/', 'webp', $request->file($theme_img));
+                }
+
+                $color_image_serial[] = [
+                    'color' => $color_,
+                    'image_name' => $image_name,
+                    'theme_image' => $theme_name
+                ];
             }
+
             if (count($product_images) != count($request->colors)) {
                 $validator->after(function ($validator) {
                     $validator->errors()->add(
@@ -862,7 +875,7 @@ class ProductController extends BaseController
                     }
 
                     $col_img_arr = [
-                        'color'        => $color,
+                        'color'        => '#'.$color,
                         'image_name'   => $product_img,
                         'theme_image'  => $theme_img,  // ✅ هاي السطر المهم
                     ];
@@ -1021,6 +1034,7 @@ class ProductController extends BaseController
             }
             $product->images = json_encode($product_images);
             $product->color_image = json_encode($color_image_array);
+            $product->colors = json_encode($input_colors);
 
             if ($request->file('image')) {
                 $product->thumbnail = ImageManager::update('product/thumbnail/', $product->thumbnail, 'webp', $request->file('image'));
