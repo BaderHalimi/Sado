@@ -37,10 +37,7 @@ class ProductController extends BaseController
         private Category $category,
         private Brand $brand,
         private Seller $seller,
-    )
-    {
-
-    }
+    ) {}
     public function add_new()
     {
         $cat = Category::where(['parent_id' => 0])->get();
@@ -85,15 +82,15 @@ class ProductController extends BaseController
             ->where(['id' => $id])
             ->first();
 
-        $product = $this->product->with(['category','brand','reviews','rating','order_details','order_delivered'])->withCount('order_delivered','order_details')
-            ->withSum('order_delivered','price')
-            ->withSum('order_delivered','qty')
-            ->withSum('order_delivered','discount')
+        $product = $this->product->with(['category', 'brand', 'reviews', 'rating', 'order_details', 'order_delivered'])->withCount('order_delivered', 'order_details')
+            ->withSum('order_delivered', 'price')
+            ->withSum('order_delivered', 'qty')
+            ->withSum('order_delivered', 'discount')
             ->where(['id' => $id])
             ->first();
 
         $reviews = Review::where(['product_id' => $id])->whereNull('delivery_man_id')->paginate(Helpers::pagination_limit());
-        return view('admin-views.product.view', compact('product', 'reviews','product_active'));
+        return view('admin-views.product.view', compact('product', 'reviews', 'product_active'));
     }
 
     public function store(Request $request)
@@ -123,15 +120,17 @@ class ProductController extends BaseController
             'minimum_order_qty.required'       => translate('minimum_order_quantity_is_required!'),
             'minimum_order_qty.min'            => translate('minimum_order_quantity_must_be_positive!'),
             'digital_file_ready.required_if'   => translate('ready_product_upload_is_required!'),
-            'digital_file_ready.mimes'         => translate('ready_product_upload_must_be_a_file_of_type').':'.'pdf, zip, jpg, jpeg, png, gif.',
+            'digital_file_ready.mimes'         => translate('ready_product_upload_must_be_a_file_of_type') . ':' . 'pdf, zip, jpg, jpeg, png, gif.',
             'digital_product_type.required_if' => translate('digital_product_type_is_required!'),
             'shipping_cost.required_if'        => translate('shipping_cost_is_required!'),
         ]);
+        // dd($request->all());
 
-        if(!$request->has('colors_active') && !$request->file('images')) {
+        if (!$request->has('colors_active') && !$request->file('images')) {
             $validator->after(function ($validator) {
                 $validator->errors()->add(
-                    'images', translate('product_images_is_required').'!'
+                    'images',
+                    translate('product_images_is_required') . '!'
                 );
             });
         }
@@ -140,7 +139,8 @@ class ProductController extends BaseController
         if ($brand_setting && empty($request->brand_id)) {
             $validator->after(function ($validator) {
                 $validator->errors()->add(
-                    'brand_id', translate('brand_is_required').'!'
+                    'brand_id',
+                    translate('brand_is_required') . '!'
                 );
             });
         }
@@ -151,10 +151,11 @@ class ProductController extends BaseController
             $dis = $request['discount'];
         }
 
-        if ($request['product_type']=='physical' && $request['unit_price'] <= $dis) {
+        if ($request['product_type'] == 'physical' && $request['unit_price'] <= $dis) {
             $validator->after(function ($validator) {
                 $validator->errors()->add(
-                    'unit_price', translate('discount_can_not_be_more_or_equal_to_the_price').'!'
+                    'unit_price',
+                    translate('discount_can_not_be_more_or_equal_to_the_price') . '!'
                 );
             });
         }
@@ -162,7 +163,8 @@ class ProductController extends BaseController
         if (is_null($request->name[array_search('en', $request->lang)])) {
             $validator->after(function ($validator) {
                 $validator->errors()->add(
-                    'name', translate('name_field_is_required').'!'
+                    'name',
+                    translate('name_field_is_required') . '!'
                 );
             });
         }
@@ -177,21 +179,22 @@ class ProductController extends BaseController
         $product_images = [];
         if ($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0) {
             foreach ($request->colors as $color) {
-                $color_ = str_replace('#','',$color);
-                $img = 'color_image_'.$color_;
-                if($request->file($img)){
+                $color_ = str_replace('#', '', $color);
+                $img = 'color_image_' . $color_;
+                if ($request->file($img)) {
                     $image_name = ImageManager::upload('product/', 'webp', $request->file($img));
                     $product_images[] = $image_name;
                     $color_image_serial[] = [
-                        'color'=>$color_,
-                        'image_name'=>$image_name,
+                        'color' => $color_,
+                        'image_name' => $image_name,
                     ];
                 }
             }
-            if(count($product_images) != count($request->colors)) {
+            if (count($product_images) != count($request->colors)) {
                 $validator->after(function ($validator) {
                     $validator->errors()->add(
-                        'images', translate('color_images_is_required').'!'
+                        'images',
+                        translate('color_images_is_required') . '!'
                     );
                 });
             }
@@ -288,7 +291,7 @@ class ProductController extends BaseController
                 $stock_count += $item['qty'];
             }
         } else {
-            $stock_count = (integer)$request['current_stock'];
+            $stock_count = (int)$request['current_stock'];
         }
 
         if ($validator->errors()->count() > 0) {
@@ -310,8 +313,8 @@ class ProductController extends BaseController
         $p->video_provider    = 'youtube';
         $p->video_url         = $request->video_link;
         $p->request_status    = 1;
-        $p->shipping_cost     = $request->product_type == 'physical' ? BackEndHelper::currency_to_usd($request->shipping_cost): 0;
-        $p->multiply_qty      = ($request->product_type == 'physical') ? ($request->multiplyQTY=='on'?1:0) : 0;
+        $p->shipping_cost     = $request->product_type == 'physical' ? BackEndHelper::currency_to_usd($request->shipping_cost) : 0;
+        $p->multiply_qty      = ($request->product_type == 'physical') ? ($request->multiplyQTY == 'on' ? 1 : 0) : 0;
 
         if ($request->ajax()) {
             return response()->json([], 200);
@@ -320,12 +323,12 @@ class ProductController extends BaseController
                 foreach ($request->file('images') as $img) {
                     $image_name = ImageManager::upload('product/', 'webp', $img);
                     $product_images[] = $image_name;
-                    if($request->has('colors_active')){
+                    if ($request->has('colors_active')) {
                         $color_image_serial[] = [
-                            'color'=>null,
-                            'image_name'=>$image_name,
+                            'color' => null,
+                            'image_name' => $image_name,
                         ];
-                    }else{
+                    } else {
                         $color_image_serial = [];
                     }
                 }
@@ -334,7 +337,7 @@ class ProductController extends BaseController
             $p->images = json_encode($product_images);
             $p->thumbnail = ImageManager::upload('product/thumbnail/', 'webp', $request->image);
 
-            if($request->product_type == 'digital' && $request->digital_product_type == 'ready_product') {
+            if ($request->product_type == 'digital' && $request->digital_product_type == 'ready_product') {
                 $p->digital_file_ready = ImageManager::file_upload('product/digital-product/', $request->digital_file_ready->getClientOriginalExtension(), $request->digital_file_ready);
             }
 
@@ -342,7 +345,7 @@ class ProductController extends BaseController
             // if($request->model_texture != null) {
             //     $p->texture = ImageManager::file_upload('product/model/', $request->model_texture->getClientOriginalExtension(), $request->model_texture);
             // }
-            if($request->model != null) {
+            if ($request->model != null) {
                 $p->model = ImageManager::file_upload('product/model/', $request->model->getClientOriginalExtension(), $request->model);
             }
 
@@ -355,7 +358,7 @@ class ProductController extends BaseController
             if ($request->tags != null) {
                 $tags = explode(",", $request->tags);
             }
-            if(isset($tags)){
+            if (isset($tags)) {
                 foreach ($tags as $key => $value) {
                     $tag = Tag::firstOrNew(
                         ['tag' => trim($value)]
@@ -397,63 +400,71 @@ class ProductController extends BaseController
     function list(Request $request, $type)
     {
 
-        $pro = $this->product->when($type == 'in_house',function($query){
-                        return $query->where(['added_by' => 'admin']);
-                    })->when($type != 'in_house',function($query)use($request){
-                        return $query->where(['added_by' => 'seller','request_status'=>$request->status]);
-                    })->when($request->has('search'),function($query)use($request){
-                        $key = explode(' ', $request['search']);
+        $pro = $this->product->when($type == 'in_house', function ($query) {
+            return $query->where(['added_by' => 'admin']);
+        })->when($type != 'in_house', function ($query) use ($request) {
+            return $query->where(['added_by' => 'seller', 'request_status' => $request->status]);
+        })->when($request->has('search'), function ($query) use ($request) {
+            $key = explode(' ', $request['search']);
 
-                        $product_ids = Translation::where('translationable_type', 'App\Model\Product')
-                                        ->where('key', 'name')
-                                        ->where(function ($q) use ($key) {
-                                            foreach ($key as $value) {
-                                                $q->orWhere('value', 'like', "%{$value}%");
-                                            }
-                                        })->pluck('translationable_id');
+            $product_ids = Translation::where('translationable_type', 'App\Model\Product')
+                ->where('key', 'name')
+                ->where(function ($q) use ($key) {
+                    foreach ($key as $value) {
+                        $q->orWhere('value', 'like', "%{$value}%");
+                    }
+                })->pluck('translationable_id');
 
 
-                        foreach ($key as $value) {
-                            return $query->where('name', 'like', "%{$value}%")->orWhereIn('id', $product_ids);
-                        }
-                    })->when(!empty($request->seller_id) && $request->has('seller_id') ,function($query)use($request){
-                        return $query->where('user_id',$request->seller_id);
-                    })
-                    ->when(!empty($request->brand_id) && $request->has('brand_id') ,function($query)use($request){
-                        return $query->where(['brand_id'=>$request->brand_id]);
-                    })
-                    ->when(!empty($request->category_id) && $request->has('category_id') ,function($query)use($request){
-                        return $query->where(['category_id'=>$request->category_id]);
-                    })
-                    ->when(!empty($request->sub_category_id) && $request->has('sub_category_id') ,function($query)use($request){
-                        return $query->where(['sub_category_id'=>$request->sub_category_id]);
-                    })
-                    ->when(!empty($request->sub_sub_category_id) && $request->has('sub_sub_category_id') ,function($query)use($request){
-                        return $query->where(['sub_sub_category_id'=>$request->sub_sub_category_id]);
-                    })
-                    ->orderBy('id','desc')->paginate(Helpers::pagination_limit())
-                    ->appends([
-                        'status' => $request['status'],
-                        'search'=>$request['search'],
-                        'seller_id',$request->seller_id,
-                        'brand_id'=>$request->brand_id,
-                        'category_id'=>$request->category_id,
-                        'sub_category_id'=>$request->sub_category_id,
-                        'sub_sub_category_id'=>$request->sub_sub_category_id
-                        ]);
+            foreach ($key as $value) {
+                return $query->where('name', 'like', "%{$value}%")->orWhereIn('id', $product_ids);
+            }
+        })->when(!empty($request->seller_id) && $request->has('seller_id'), function ($query) use ($request) {
+            return $query->where('user_id', $request->seller_id);
+        })
+            ->when(!empty($request->brand_id) && $request->has('brand_id'), function ($query) use ($request) {
+                return $query->where(['brand_id' => $request->brand_id]);
+            })
+            ->when(!empty($request->category_id) && $request->has('category_id'), function ($query) use ($request) {
+                return $query->where(['category_id' => $request->category_id]);
+            })
+            ->when(!empty($request->sub_category_id) && $request->has('sub_category_id'), function ($query) use ($request) {
+                return $query->where(['sub_category_id' => $request->sub_category_id]);
+            })
+            ->when(!empty($request->sub_sub_category_id) && $request->has('sub_sub_category_id'), function ($query) use ($request) {
+                return $query->where(['sub_sub_category_id' => $request->sub_sub_category_id]);
+            })
+            ->orderBy('id', 'desc')->paginate(Helpers::pagination_limit())
+            ->appends([
+                'status' => $request['status'],
+                'search' => $request['search'],
+                'seller_id',
+                $request->seller_id,
+                'brand_id' => $request->brand_id,
+                'category_id' => $request->category_id,
+                'sub_category_id' => $request->sub_category_id,
+                'sub_sub_category_id' => $request->sub_sub_category_id
+            ]);
         /**
          * For filter
          */
-        $sellers = $this->seller->with('shop')->where('status','!=','pending')->get();
+        $sellers = $this->seller->with('shop')->where('status', '!=', 'pending')->get();
         $brands = $this->brand->active()->get();
-        $categories = $this->category->where('position',0)->get();
+        $categories = $this->category->where('position', 0)->get();
         $sub_category = $this->category->find($request->sub_category_id);
         $sub_sub_category = $this->category->find($request->sub_sub_category_id);
         /**
          * End
          */
-        return view('admin-views.product.list', compact('pro','type' ,'sellers','brands',
-                            'categories','sub_category','sub_sub_category'));
+        return view('admin-views.product.list', compact(
+            'pro',
+            'type',
+            'sellers',
+            'brands',
+            'categories',
+            'sub_category',
+            'sub_sub_category'
+        ));
     }
 
     /**
@@ -461,66 +472,67 @@ class ProductController extends BaseController
      * @param Request $request
      * @param $type
      */
-    public function export_excel(Request $request, $type){
+    public function export_excel(Request $request, $type)
+    {
         $search = $request['search'];
-        $products = $this->product->when($type == 'in_house',function($query){
-                    return $query->where(['added_by' => 'admin']);
-                })
-                ->when($type == 'seller',function($query)use($request){
-                    return $query->where(['added_by' => 'seller','request_status'=>$request->status]);
-                })
-                ->when(!empty($request->search),function($query)use($request){
-                    $key = explode(' ', $request['search']);
+        $products = $this->product->when($type == 'in_house', function ($query) {
+            return $query->where(['added_by' => 'admin']);
+        })
+            ->when($type == 'seller', function ($query) use ($request) {
+                return $query->where(['added_by' => 'seller', 'request_status' => $request->status]);
+            })
+            ->when(!empty($request->search), function ($query) use ($request) {
+                $key = explode(' ', $request['search']);
 
-                    $product_ids = Translation::where('translationable_type', 'App\Model\Product')
-                                    ->where('key', 'name')
-                                    ->where(function ($q) use ($key) {
-                                        foreach ($key as $value) {
-                                            $q->orWhere('value', 'like', "%{$value}%");
-                                        }
-                                    })->pluck('translationable_id');
+                $product_ids = Translation::where('translationable_type', 'App\Model\Product')
+                    ->where('key', 'name')
+                    ->where(function ($q) use ($key) {
+                        foreach ($key as $value) {
+                            $q->orWhere('value', 'like', "%{$value}%");
+                        }
+                    })->pluck('translationable_id');
 
 
-                    foreach ($key as $value) {
-                        return $query->where('name', 'like', "%{$value}%")->orWhereIn('id', $product_ids);
-                    }
-                })
-                ->when(!empty($request->seller_id) && $request->has('seller_id') ,function($query)use($request){
-                    return $query->where('user_id',$request->seller_id);
-                })
-                ->when(!empty($request->brand_id) && $request->has('brand_id') ,function($query)use($request){
-                    return $query->where(['brand_id'=>$request->brand_id]);
-                })
-                ->when(!empty($request->category_id) && $request->has('category_id') ,function($query)use($request){
-                    return $query->where(['category_id'=>$request->category_id]);
-                })
-                ->when(!empty($request->sub_category_id) && $request->has('sub_category_id') ,function($query)use($request){
-                    return $query->where(['sub_category_id'=>$request->sub_category_id]);
-                })
-                ->when(!empty($request->sub_sub_category_id) && $request->has('sub_sub_category_id') ,function($query)use($request){
-                    return $query->where(['sub_sub_category_id'=>$request->sub_sub_category_id]);
-                })->latest()
-                ->get();
+                foreach ($key as $value) {
+                    return $query->where('name', 'like', "%{$value}%")->orWhereIn('id', $product_ids);
+                }
+            })
+            ->when(!empty($request->seller_id) && $request->has('seller_id'), function ($query) use ($request) {
+                return $query->where('user_id', $request->seller_id);
+            })
+            ->when(!empty($request->brand_id) && $request->has('brand_id'), function ($query) use ($request) {
+                return $query->where(['brand_id' => $request->brand_id]);
+            })
+            ->when(!empty($request->category_id) && $request->has('category_id'), function ($query) use ($request) {
+                return $query->where(['category_id' => $request->category_id]);
+            })
+            ->when(!empty($request->sub_category_id) && $request->has('sub_category_id'), function ($query) use ($request) {
+                return $query->where(['sub_category_id' => $request->sub_category_id]);
+            })
+            ->when(!empty($request->sub_sub_category_id) && $request->has('sub_sub_category_id'), function ($query) use ($request) {
+                return $query->where(['sub_sub_category_id' => $request->sub_sub_category_id]);
+            })->latest()
+            ->get();
 
         //export from product
-        $category = !empty($request->category_id) && $request->has('category_id') ? $this->category->where(['id'=>$request->category_id])->first() : 'all';
+        $category = !empty($request->category_id) && $request->has('category_id') ? $this->category->where(['id' => $request->category_id])->first() : 'all';
 
-        $sub_category =!empty($request->sub_category_id) &&  $request->has('sub_category_id') ? $this->category->where(['id'=>$request->sub_category_id])->first() : 'all';
-        $sub_sub_category = !empty($request->sub_sub_category_id) && $request->has('sub_sub_category_id') ? $this->category->where(['id'=>$request->sub_sub_category_id])->first() : 'all';
-        $brnad = !empty($request->brand_id) && $request->has('brand_id') ? Brand::where(['id'=>$request->brand_id])->first() : 'all';
-        $seller = !empty($request->seller_id) && $request->has('seller_id') ? Seller::where(['id'=>$request->seller_id])->first() : '';
+        $sub_category = !empty($request->sub_category_id) &&  $request->has('sub_category_id') ? $this->category->where(['id' => $request->sub_category_id])->first() : 'all';
+        $sub_sub_category = !empty($request->sub_sub_category_id) && $request->has('sub_sub_category_id') ? $this->category->where(['id' => $request->sub_sub_category_id])->first() : 'all';
+        $brnad = !empty($request->brand_id) && $request->has('brand_id') ? Brand::where(['id' => $request->brand_id])->first() : 'all';
+        $seller = !empty($request->seller_id) && $request->has('seller_id') ? Seller::where(['id' => $request->seller_id])->first() : '';
         $data = [
-            'products' =>$products,
-            'category' =>$category,
-            'sub_category' =>$sub_category,
-            'sub_sub_category' =>$sub_sub_category,
+            'products' => $products,
+            'category' => $category,
+            'sub_category' => $sub_category,
+            'sub_sub_category' => $sub_sub_category,
             'brand' => $brnad,
             'search' => $search,
             'type' => $request->type ?? '',
             'seller' => $seller,
             'status' => $request->status ?? '',
         ];
-        return Excel::download(new ProductListExport($data) , ucwords($request->type).'-'.'product-list.xlsx');
+        return Excel::download(new ProductListExport($data), ucwords($request->type) . '-' . 'product-list.xlsx');
     }
 
     public function updated_product_list(Request $request)
@@ -530,7 +542,7 @@ class ProductController extends BaseController
         if ($request->has('search')) {
             $key = explode(' ', $request['search']);
             $pro = Product::where(['added_by' => 'seller'])
-                ->where('is_shipping_cost_updated',0)
+                ->where('is_shipping_cost_updated', 0)
                 ->where(function ($q) use ($key) {
                     foreach ($key as $value) {
                         $q->Where('name', 'like', "%{$value}%");
@@ -538,7 +550,7 @@ class ProductController extends BaseController
                 });
             $query_param = ['search' => $request['search']];
         } else {
-            $pro = Product::where(['added_by' => 'seller'])->where('is_shipping_cost_updated',0);
+            $pro = Product::where(['added_by' => 'seller'])->where('is_shipping_cost_updated', 0);
         }
         $pro = $pro->orderBy('id', 'DESC')->paginate(Helpers::pagination_limit())->appends($query_param);
 
@@ -552,9 +564,9 @@ class ProductController extends BaseController
         $query_param = $request->all();
         $search = $request['search'];
         if ($type == 'in_house') {
-            $pro = Product::where(['added_by' => 'admin', 'product_type'=>'physical']);
+            $pro = Product::where(['added_by' => 'admin', 'product_type' => 'physical']);
         } else {
-            $pro = Product::where(['added_by' => 'seller', 'product_type'=>'physical'])->where('request_status', $request->status);
+            $pro = Product::where(['added_by' => 'seller', 'product_type' => 'physical'])->where('request_status', $request->status);
         }
 
         if ($request->has('search')) {
@@ -642,24 +654,21 @@ class ProductController extends BaseController
     {
 
         $product = Product::where(['id' => $request['product_id']])->first();
-        if($request->status == 1)
-        {
+        if ($request->status == 1) {
             $product->shipping_cost = $product->temp_shipping_cost;
             $product->is_shipping_cost_updated = $request->status;
-        }else{
+        } else {
             $product->is_shipping_cost_updated = $request->status;
         }
 
         $product->save();
-        return response()->json([
-
-        ], 200);
+        return response()->json([], 200);
     }
 
     public function get_categories(Request $request)
     {
         $cat = Category::where(['parent_id' => $request->parent_id])->get();
-        $res = '<option value="' . 0 . '" disabled selected>---'.translate("Select").'---</option>';
+        $res = '<option value="' . 0 . '" disabled selected>---' . translate("Select") . '---</option>';
         foreach ($cat as $row) {
             if ($row->id == $request->sub_category) {
                 $res .= '<option value="' . $row->id . '" selected >' . $row->defaultName . '</option>';
@@ -717,7 +726,7 @@ class ProductController extends BaseController
         $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
         $digital_product_setting = BusinessSetting::where('type', 'digital_product')->first()->value;
 
-        return view('admin-views.product.edit', compact('categories', 'br', 'product', 'product_category','brand_setting','digital_product_setting'));
+        return view('admin-views.product.edit', compact('categories', 'br', 'product', 'product_category', 'brand_setting', 'digital_product_setting'));
     }
 
     public function update(Request $request, $id)
@@ -736,7 +745,7 @@ class ProductController extends BaseController
             'purchase_price'        => 'required|numeric|gt:0',
             'discount'              => 'required|gt:-1',
             'shipping_cost'         => 'required_if:product_type,==,physical|gt:-1',
-            'code'                  => 'required|numeric|min:1|digits_between:6,20|unique:products,code,'.$product->id,
+            'code'                  => 'required|numeric|min:1|digits_between:6,20|unique:products,code,' . $product->id,
             'minimum_order_qty'     => 'required|numeric|min:1',
         ], [
             'name.required'                     => 'Product name is required!',
@@ -750,17 +759,19 @@ class ProductController extends BaseController
             'digital_product_type.required_if'  => 'Digital product type is required!',
             'shipping_cost.required_if'         => 'Shipping Cost is required!',
         ]);
+        // dd($request->all());
 
         $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
         if ($brand_setting && empty($request->brand_id)) {
             $validator->after(function ($validator) {
                 $validator->errors()->add(
-                    'brand_id', 'Brand is required!'
+                    'brand_id',
+                    'Brand is required!'
                 );
             });
         }
 
-        if(
+        if (
             ($request->product_type == 'digital') &&
             ($request->digital_product_type == 'ready_product') &&
             empty($product->digital_file_ready) &&
@@ -777,7 +788,7 @@ class ProductController extends BaseController
             $dis = $request['discount'];
         }
 
-        if ($request['product_type']=='physical' && $request['unit_price'] <= $dis) {
+        if ($request['product_type'] == 'physical' && $request['unit_price'] <= $dis) {
             $validator->after(function ($validator) {
                 $validator->errors()->add('unit_price', 'Discount can not be more or equal to the price!');
             });
@@ -786,7 +797,8 @@ class ProductController extends BaseController
         if (is_null($request->name[array_search('en', $request->lang)])) {
             $validator->after(function ($validator) {
                 $validator->errors()->add(
-                    'name', 'Name field is required!'
+                    'name',
+                    'Name field is required!'
                 );
             });
         }
@@ -795,19 +807,19 @@ class ProductController extends BaseController
         $color_image_array = [];
         if ($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0) {
             $db_color_image = $product->color_image ? json_decode($product->color_image, true) : [];
-            if(!$db_color_image){
-               foreach($product_images as $image){
-                   $db_color_image[] = [
-                       'color'=>null,
-                       'image_name'=>$image,
-                   ];
-               }
+            if (!$db_color_image) {
+                foreach ($product_images as $image) {
+                    $db_color_image[] = [
+                        'color' => null,
+                        'image_name' => $image,
+                    ];
+                }
             }
 
             $db_color_image_final = [];
-            if($db_color_image){
-                foreach ($db_color_image as $color_img){
-                    if($color_img['color']) {
+            if ($db_color_image) {
+                foreach ($db_color_image as $color_img) {
+                    if ($color_img['color']) {
                         $db_color_image_final[] = $color_img['color'];
                     }
                 }
@@ -815,17 +827,17 @@ class ProductController extends BaseController
 
             $input_colors = [];
             foreach ($request->colors as $color) {
-                $input_colors[] = str_replace('#','',$color);
+                $input_colors[] = str_replace('#', '', $color);
             }
             $diff_color = array_diff($db_color_image_final, $input_colors);
 
             $color_image_required = [];
-            if($db_color_image){
-                foreach ($db_color_image as $color_img){
-                    if($color_img['color'] !=null && !in_array($color_img['color'], $diff_color)){
+            if ($db_color_image) {
+                foreach ($db_color_image as $color_img) {
+                    if ($color_img['color'] != null && !in_array($color_img['color'], $diff_color)) {
                         $color_image_required[] = [
-                            'color'=>$color_img['color'],
-                            'image_name'=>$color_img['image_name'],
+                            'color' => $color_img['color'],
+                            'image_name' => $color_img['image_name'],
                         ];
                     }
                 }
@@ -833,25 +845,40 @@ class ProductController extends BaseController
             $color_image_array = $db_color_image;
 
             foreach ($input_colors as $color) {
-                if(!in_array($color, $db_color_image_final)){
-                    $img = 'color_image_'.$color;
-                    if($request->file($img)){
-                        $image_name = ImageManager::upload('product/', 'webp', $request->file($img));
-                        $product_images[] = $image_name;
-                        $col_img_arr = [
-                            'color'=>$color,
-                            'image_name'=>$image_name,
-                        ];
-                        $color_image_required[] = $col_img_arr;
-                        $color_image_array[] = $col_img_arr;
+                if (!in_array($color, $db_color_image_final)) {
+                    $img_name = 'color_image_' . $color;       // صورة المنتج العادية المرتبطة باللون
+                    $theme_img_name = 'image_' . $color;        // صورة اللون نفسها (theme swatch)
+
+                    $product_img = null;
+                    $theme_img = null;
+
+                    if ($request->file($img_name)) {
+                        $product_img = ImageManager::upload('product/', 'webp', $request->file($img_name));
+                        $product_images[] = $product_img;
                     }
+
+                    if ($request->file($theme_img_name)) {
+                        $theme_img = ImageManager::upload('product/color-theme/', 'webp', $request->file($theme_img_name));
+                    }
+
+                    $col_img_arr = [
+                        'color'        => $color,
+                        'image_name'   => $product_img,
+                        'theme_image'  => $theme_img,  // ✅ هاي السطر المهم
+                    ];
+
+                    $color_image_required[] = $col_img_arr;
+                    $color_image_array[] = $col_img_arr;
                 }
             }
 
-            if(count($color_image_required) != count($request->colors)) {
+
+
+            if (count($color_image_required) != count($request->colors)) {
                 $validator->after(function ($validator) {
                     $validator->errors()->add(
-                        'images', 'Color images is required!'
+                        'images',
+                        'Color images is required!'
                     );
                 });
             }
@@ -950,7 +977,7 @@ class ProductController extends BaseController
                 $stock_count += $item['qty'];
             }
         } else {
-            $stock_count = (integer)$request['current_stock'];
+            $stock_count = (int)$request['current_stock'];
         }
 
         if ($validator->errors()->count() > 0) {
@@ -975,8 +1002,8 @@ class ProductController extends BaseController
             $product->request_status = 1;
         }
 
-        $product->shipping_cost = $request->product_type == 'physical' ? BackEndHelper::currency_to_usd($request->shipping_cost): 0;
-        $product->multiply_qty = ($request->product_type == 'physical') ? ($request->multiplyQTY=='on'?1:0) : 0;
+        $product->shipping_cost = $request->product_type == 'physical' ? BackEndHelper::currency_to_usd($request->shipping_cost) : 0;
+        $product->multiply_qty = ($request->product_type == 'physical') ? ($request->multiplyQTY == 'on' ? 1 : 0) : 0;
         if ($request->ajax()) {
             return response()->json([], 200);
         } else {
@@ -984,10 +1011,10 @@ class ProductController extends BaseController
                 foreach ($request->file('images') as $img) {
                     $image_name = ImageManager::upload('product/', 'webp', $img);
                     $product_images[] = $image_name;
-                    if($request->has('colors_active')){
+                    if ($request->has('colors_active')) {
                         $color_image_array[] = [
-                            'color'=>null,
-                            'image_name'=>$image_name,
+                            'color' => null,
+                            'image_name' => $image_name,
                         ];
                     }
                 }
@@ -999,15 +1026,15 @@ class ProductController extends BaseController
                 $product->thumbnail = ImageManager::update('product/thumbnail/', $product->thumbnail, 'webp', $request->file('image'));
             }
 
-            if($request->product_type == 'digital') {
-                if($request->digital_product_type == 'ready_product' && $request->hasFile('digital_file_ready')){
+            if ($request->product_type == 'digital') {
+                if ($request->digital_product_type == 'ready_product' && $request->hasFile('digital_file_ready')) {
                     $product->digital_file_ready = ImageManager::update('product/digital-product/', $product->digital_file_ready, $request->digital_file_ready->getClientOriginalExtension(), $request->file('digital_file_ready'), 'file');
-                }elseif(($request->digital_product_type == 'ready_after_sell') && $product->digital_file_ready){
-                    ImageManager::delete('product/digital-product/'.$product->digital_file_ready);
+                } elseif (($request->digital_product_type == 'ready_after_sell') && $product->digital_file_ready) {
+                    ImageManager::delete('product/digital-product/' . $product->digital_file_ready);
                     $product->digital_file_ready = null;
                 }
-            }elseif($request->product_type == 'physical' && $product->digital_file_ready){
-                ImageManager::delete('product/digital-product/'.$product->digital_file_ready);
+            } elseif ($request->product_type == 'physical' && $product->digital_file_ready) {
+                ImageManager::delete('product/digital-product/' . $product->digital_file_ready);
                 $product->digital_file_ready = null;
             }
 
@@ -1021,7 +1048,7 @@ class ProductController extends BaseController
             // if($request->file('model_texture')) {
             //     $product->texture = ImageManager::update('product/model/', $product->texture, $request->file('model_texture')->getClientOriginalExtension(), $request->file('model_texture'));
             // }
-            if($request->file('model')) {
+            if ($request->file('model')) {
                 $product->model = ImageManager::update('product/model/', $product->model, $request->file('model')->getClientOriginalExtension(), $request->file('model'), 'file');
             }
 
@@ -1031,7 +1058,7 @@ class ProductController extends BaseController
             if ($request->tags != null) {
                 $tags = explode(",", $request->tags);
             }
-            if(isset($tags)){
+            if (isset($tags)) {
                 foreach ($tags as $key => $value) {
                     $tag = Tag::firstOrNew(
                         ['tag' => trim($value)]
@@ -1045,24 +1072,28 @@ class ProductController extends BaseController
             foreach ($request->lang as $index => $key) {
                 if ($request->name[$index] && $key != 'en') {
                     Translation::updateOrInsert(
-                        ['translationable_type' => 'App\Model\Product',
+                        [
+                            'translationable_type' => 'App\Model\Product',
                             'translationable_id' => $product->id,
                             'locale' => $key,
-                            'key' => 'name'],
+                            'key' => 'name'
+                        ],
                         ['value' => $request->name[$index]]
                     );
                 }
                 if ($request->description[$index] && $key != 'en') {
                     Translation::updateOrInsert(
-                        ['translationable_type' => 'App\Model\Product',
+                        [
+                            'translationable_type' => 'App\Model\Product',
                             'translationable_id' => $product->id,
                             'locale' => $key,
-                            'key' => 'description'],
+                            'key' => 'description'
+                        ],
                         ['value' => $request->description[$index]]
                     );
                 }
             }
-            Toastr::success(translate('product_updated_successfully').'!');
+            Toastr::success(translate('product_updated_successfully') . '!');
             return back();
         }
     }
@@ -1079,12 +1110,12 @@ class ProductController extends BaseController
         $colors = json_decode($product['colors']);
         $color_image = json_decode($product['color_image']);
         $color_image_arr = [];
-        if($colors && $color_image){
-            foreach($color_image as $img){
-                if($img->color != $request->color && $img->image_name != $request->name){
+        if ($colors && $color_image) {
+            foreach ($color_image as $img) {
+                if ($img->color != $request->color && $img->image_name != $request->name) {
                     $color_image_arr[] = [
-                        'color' =>$img->color!=null ? $img->color:null,
-                        'image_name' =>$img->image_name,
+                        'color' => $img->color != null ? $img->color : null,
+                        'image_name' => $img->image_name,
                     ];
                 }
             }
@@ -1137,7 +1168,7 @@ class ProductController extends BaseController
         try {
             $collections = (new FastExcel)->import($request->file('products_file'));
         } catch (\Exception $exception) {
-            Toastr::error(translate('you_have_uploaded_a_wrong_format_file').','.translate('please_upload_the_right_file.'));
+            Toastr::error(translate('you_have_uploaded_a_wrong_format_file') . ',' . translate('please_upload_the_right_file.'));
             return back();
         }
 
@@ -1148,12 +1179,12 @@ class ProductController extends BaseController
 
         foreach ($collections as $collection) {
             foreach ($collection as $key => $value) {
-                if ($key!="" && !in_array($key, $col_key)) {
+                if ($key != "" && !in_array($key, $col_key)) {
                     Toastr::error(translate('Please_upload_the_correct_format_file'));
                     return back();
                 }
 
-                if ($key!="" && $value === "" && !in_array($key, $skip)) {
+                if ($key != "" && $value === "" && !in_array($key, $skip)) {
                     Toastr::error(translate('Please fill ' . $key . ' fields'));
                     return back();
                 }
@@ -1183,7 +1214,7 @@ class ProductController extends BaseController
                 'video_provider' => 'youtube',
                 'video_url' => $collection['youtube_video_url'],
                 'images' => json_encode(['def.png']),
-                'thumbnail' => $thumbnail[1]??$thumbnail[0],
+                'thumbnail' => $thumbnail[1] ?? $thumbnail[0],
                 'status' => 1,
                 'request_status' => 1,
                 'colors' => json_encode([]),
@@ -1196,7 +1227,7 @@ class ProductController extends BaseController
             ]);
         }
         DB::table('products')->insert($data);
-        Toastr::success(count($data) . ' - '.translate('products_imported_successfully'));
+        Toastr::success(count($data) . ' - ' . translate('products_imported_successfully'));
         return back();
     }
 
@@ -1252,5 +1283,4 @@ class ProductController extends BaseController
         $limit =  $request->limit ?? 4;
         return view('admin-views.product.barcode', compact('product', 'limit'));
     }
-
 }
