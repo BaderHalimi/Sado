@@ -1,0 +1,11 @@
+Model Information:
+* title:	MR 10 chair
+* source:	https://sketchfab.com/3d-models/mr-10-chair-e19dda10060749d5a93ee6dde5a66cba
+* author:	Pablo Espinosa (https://sketchfab.com/pabloespinosa)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "MR 10 chair" (https://sketchfab.com/3d-models/mr-10-chair-e19dda10060749d5a93ee6dde5a66cba) by Pablo Espinosa (https://sketchfab.com/pabloespinosa) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

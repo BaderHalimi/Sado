@@ -1,0 +1,409 @@
+html {
+  overflow: hidden;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+}
+
+div {
+  margin: 0;
+  padding: 0;
+}
+
+.ui-toolip
+{
+	width: auto;
+	height: auto;
+}
+
+#interfaces, #interface-controls
+{
+	position: absolute; 
+/* 	width: 100%; */
+/* 	height: 100%; */
+}
+
+#interfaces
+{
+	z-index: 0;
+}
+
+#interface-controls
+{
+	margin: 0 auto;
+	width: 100%;
+	text-align: center;
+	bottom: 10px;
+	z-index: 100;
+}
+#camera-controls
+{
+	float: left;
+/* 	right: 50%; */
+/* 	bottom: 50px; */
+}
+
+#floorplanner, #viewer
+{  
+  position: absolute;
+  width: 100vw;
+  height:100vh;
+}
+
+#floorplanner-controls 
+{
+  position: absolute;
+  left: 80px;
+  top: 0;
+  margin: 20px 0;
+  padding: 0 20px; 
+  width: 100%;
+}
+
+#floorplanner-controls a, #floorplanner-controls span {
+  font-size: 35px !important;
+}
+
+#main-controls {
+  position: absolute;
+  top: 20px;
+  left: 120px;
+  padding: 0;  
+}
+
+#main-controls a {
+  font-size: 20px;
+}
+
+#walltextures
+{
+	position: absolute;
+	right: 100px;
+	top: 100px;
+}
+
+.btn-file {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  cursor: inherit;
+  display: block;
+}
+
+.btn-hint 
+{
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.50);
+  color: #ffffff;
+  padding: 5px 10px;
+  z-index: 10;
+  display: none;
+}
+
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+.inventory-content
+{
+	max-height: 500px;
+	overflow-y: scroll;
+}
+
+/* .ui-dialog, .ui-dialog-content, .ui-widget-content */
+/* { */
+/* 	min-width: 50%; */
+/* 	max-height: 500px; */
+/* 	height: 500px; */
+/*     overflow: auto; */
+/*     position: relative; */
+/*     padding: 0 !important; */
+/* } */
+
+/* Enable multiple lines in bootstrap tooltips */
+.tooltip-inner {
+    white-space:pre-wrap;
+}
+
+.dg select
+{
+	color: #000000;
+}
+
+
+.left-toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  overflow-y: hidden;
+  background: #333
+}
+
+.left-toolbar .hr {
+  margin: 15px 0;
+  width: 40px
+}
+
+.left-toolbar .left-toolbar-button {
+  display: flex;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #666;
+  background: #333;
+  border-radius: 2px;
+  font-size: 20px;
+  font-weight: 700;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: .3s;
+  color: #ccc;
+  margin: -1px 0
+}
+
+.left-toolbar .left-toolbar-button:hover {
+  background: #888
+}
+
+.left-toolbar .left-toolbar-button.toggled {
+  background: #aaa;
+  color: #fff
+}
+
+.left-container {
+  position: fixed;
+  z-index: 1000;
+  width: 60px;
+  height: 100vh;
+  overflow: auto;
+  float: left
+}
+
+
+.mt-2{
+  margin-top: 20px;
+}
+
+.item-hidden {
+  display: none !important;
+}
+.left-toolbar-button img {
+  width: 100%;
+  height: 100%;
+}
+
+.add-item img{
+  width: 100% !important;
+  height: 200px;
+}
+
+.property-name {
+  font-size: 15px;
+}
+
+@media screen and (min-width: 500px) {
+  /* CSS rules go here */
+  .left-container{
+    width: 100px !important;
+  }
+  .left-toolbar .left-toolbar-button {
+    width: 80px !important;
+    height: 80px !important;
+  }
+  .left-toolbar-button span {
+    font-size: 40px;
+  }
+  #camera-controls{
+    left: 100px;
+  }
+  #camera-controls a {
+    width: 50px;
+  }
+  #camera-controls span {
+    font-size: 25px;
+  }
+  .sidebar {
+    font-size: 35px;
+  }
+  /* #add-items {
+    width: 700px;
+    padding-left: 120px;
+  } */
+}
+
+@media screen and (min-width: 750px) {
+  /* CSS rules go here */
+  .left-container{
+    width: 100px !important;
+  }
+  .left-toolbar .left-toolbar-button {
+    width: 80px !important;
+    height: 80px !important;
+  }
+  .left-toolbar-button span {
+    font-size: 40px;
+  }
+  #camera-controls{
+    left: 100px;
+  }
+  #camera-controls a {
+    width: 50px;
+  }
+  #camera-controls span {
+    font-size: 25px;
+  }
+  .sidebar {
+    font-size: 25px;
+  }
+  /* #add-items {
+    width: 700px;
+    padding-left: 120px;
+  } */
+}
+
+@media screen and (min-width: 1200px) {
+  /* CSS rules go here */
+  .left-container{
+    width: 80px !important;
+  }
+  .left-toolbar .left-toolbar-button {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  .left-toolbar-button span {
+    font-size: 35px;
+  }
+  #camera-controls{
+    left: 100px;
+  }
+  #camera-controls a {
+    width: 50px;
+  }
+  #camera-controls span {
+    font-size: 25px;
+  }
+  .sidebar {
+    font-size: 20px;
+  }
+}
+
+@media screen and (min-width: 1900px) {
+  /* CSS rules go here */
+  .left-container{
+    width: 70px !important;
+  }
+  .left-toolbar-button span {
+    font-size: 30px;
+  }
+}
+
+
+#interface-controls {
+  width: 300px;
+  left: 100px;
+}
+
+#interface-panel {
+  width: 300px;
+  height: 100vh;
+  background-color: #ccc;
+  z-index: 3;
+  position: absolute;
+  top: 50px;
+  right: 0px;
+}
+
+.interface-color {
+  display: grid;
+  z-index: 4;
+  justify-content: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  grid-template-columns: repeat(auto-fit, 70px);
+}
+
+.top-left-panel {
+  position: absolute;
+  right: 0px;
+  top: 5px;
+  display: flex;
+}
+
+.color-floor, .color-item{
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  margin: 4px;
+}
+
+.color-floor img, .color-item img {
+  width: 60px;
+  height: 60px;
+}
+
+#add-design-room{
+  display: none;
+  z-index: 3;
+  padding: 20px;
+  overflow-y: auto; 
+  position: fixed;
+  background-color: aliceblue;
+  width: 500px;
+  padding-left: 120px;
+}
+
+#roomPreviewer {
+  margin-top: 20px;
+  width: 300px;
+  border: dashed 1px black
+}
+
+.dg li.title, .dg li {
+  font-size: 19px !important;
+}
+
+.dg.a {
+  margin-top: 100px !important;
+}
+
+.dg .property-name {
+    font-size: 22px !important;
+    width: fit-content !important;
+}
+
+.dg .c{
+    float: right !important;
+}
+
+.dg li:not(.folder) {
+    height: 50px !important;
+}
+
+.dg .closed li:not(.title), .dg .closed ul li, .dg .closed ul li>* {
+    height: 0px !important;
+}
