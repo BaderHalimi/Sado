@@ -259,25 +259,43 @@
                     <input type="hidden" name="id" value="{{ $product->id }}">
                     <div class="position-relative {{Session::get('direction') === "rtl" ? 'ml-n4' : 'mr-n4'}} mb-3">
                         @if (count(json_decode($product->colors)) > 0)
-                            <div class="flex-start">
-                                <div class="product-description-label text-dark font-bold">
+                            <div class="mb-2">
+                                <div class="mb-2 product-description-label text-dark font-bold">
                                     {{translate('color')}}:
                                 </div>
                                 <div class="__pl-15 mt-1">
                                     <ul class="flex-start checkbox-color mb-0 p-0" style="list-style: none;">
-                                        @foreach (json_decode($product->colors) as $key => $color)
-                                            <li>
-                                                <input type="radio"
-                                                       id="{{ $product->id }}-color-{{ str_replace('#','',$color) }}"
-                                                       name="color" value="{{ $color }}"
-                                                       @if($key == 0) checked @endif>
-                                                <label style="background: {{ $color }};"
-                                                       for="{{ $product->id }}-color-{{ str_replace('#','',$color) }}"
-                                                       data-toggle="tooltip"
-                                                       onclick="quick_view_preview_image_by_color('{{ str_replace('#','',$color) }}')">
-                                                    <span class="outline" style="border-color: {{ $color }}"></span>
-                                                </label>
-                                            </li>
+                                        @foreach (json_decode($product->color_image) as $key => $color)
+                                            @if($color->color != null)
+                                                @php 
+                                                    $theme_image = $color->theme_image;
+                                                    $color = $color->color;
+                                                @endphp
+                                                {{-- @php
+                                                    $color = \App\Model\Color::where('code', '#'.$color->color)->first();
+                                                    dd($color);
+                                                @endphp --}}
+                                                <li @if($theme_image != null) style="width: 40px !important; height: 60px !important; margin:0; padding:0;" @endif>
+                                                    <input type="radio"
+                                                        id="{{ $product->id }}-color-{{ str_replace('#','',$color) }}"
+                                                        name="color" value="{{ $color }}"
+                                                    @if($key == 0) checked @endif>
+                                                    @if($theme_image != null)
+                                                        <label style="width: 40px !important; height: 60px !important; margin:0; padding:0;" for="{{ $product->id }}-color-{{ str_replace('#','',$color) }}"
+                                                            data-toggle="tooltip" onclick="focus_preview_image_by_color('{{ str_replace('#','',$color) }}')">
+                                                            <img src="{{ asset('storage/app/public/product/color-theme/'.$theme_image) }}"
+                                                                alt="Product color"
+                                                                class="border border-2 rounded border-light"
+                                                                style="width: 40px !important; height: 60px !important; object-fit: cover; prder-radius: 5px;">
+                                                        </label>
+                                                    @else
+                                                        <label style="background-color: {{ $color }}; border: 1px solid black;"
+                                                            for="{{ $product->id }}-color-{{ str_replace('#','',$color) }}"
+                                                            data-toggle="tooltip" onclick="focus_preview_image_by_color('{{ str_replace('#','',$color) }}')">
+                                                        <span class="outline"></span></label>
+                                                    @endif
+                                                </li>
+                                            @endif
                                         @endforeach
                                     </ul>
                                 </div>

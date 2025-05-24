@@ -339,10 +339,10 @@
                                     <input type="hidden" name="id" value="{{ $product->id }}">
                                     <div class="position-relative {{Session::get('direction') === "rtl" ? 'ml-n4' : 'mr-n4'}} mb-2">
                                         @if (count(json_decode($product->color_image)) > 0)
-                                            <div class="flex-start align-items-center mb-2">
-                                                <div class="product-description-label m-0 text-dark font-bold">{{translate('color')}}:
+                                            <div class=" mb-2">
+                                                <div class="mb-2 product-description-label m-0 text-dark font-bold">{{translate('color')}}:
                                                 </div>
-                                                <div>
+                                                <div class="row justify-content-start">
                                                     <ul class="list-inline checkbox-color mb-0 flex-start {{Session::get('direction') === "rtl" ? 'mr-2' : 'ml-2'}}"
                                                         style="padding-{{Session::get('direction') === "rtl" ? 'right' : 'left'}}: 0;">
                                                         @foreach (json_decode($product->color_image) as $key => $color)
@@ -355,25 +355,25 @@
                                                                     $color = \App\Model\Color::where('code', '#'.$color->color)->first();
                                                                     dd($color);
                                                                 @endphp --}}
-                                                                <li @if($theme_image != null) style="width: 40px !important; height: 80px !important; margin:0; padding:0;" @endif>
+                                                                <li @if($theme_image != null) style="width: 40px !important; height: 60px !important; margin:0; padding:0;" @endif>
                                                                     <input type="radio"
                                                                         id="{{ $product->id }}-color-{{ str_replace('#','',$color) }}"
                                                                         name="color" value="{{ $color }}"
-                                                                        @if($key == 0) checked @endif>
-                                                                        @if($theme_image != null)
-                                                                            <label style="width: 40px !important; height: 80px !important; margin:0; padding:0;" for="{{ $product->id }}-color-{{ str_replace('#','',$color) }}"
-                                                                                data-toggle="tooltip" onclick="focus_preview_image_by_color('{{ str_replace('#','',$color) }}')">
-                                                                                <img src="{{ asset('storage/app/public/product/color-theme/'.$theme_image) }}"
-                                                                                    alt="Product color"
-                                                                                    class="border border-2 border-light"
-                                                                                    style="width: 40px !important; height: 80px !important; object-fit: cover;">
-                                                                            </label>
-                                                                        @else
-                                                                            <label style="background-color: {{ $color }}; border: 1px solid black;"
-                                                                                for="{{ $product->id }}-color-{{ str_replace('#','',$color) }}"
-                                                                                data-toggle="tooltip" onclick="focus_preview_image_by_color('{{ str_replace('#','',$color) }}')">
-                                                                            <span class="outline"></span></label>
-                                                                        @endif
+                                                                    @if($key == 0) checked @endif>
+                                                                    @if($theme_image != null)
+                                                                        <label style="width: 40px !important; height: 60px !important; margin:0; padding:0;" for="{{ $product->id }}-color-{{ str_replace('#','',$color) }}"
+                                                                            data-toggle="tooltip" onclick="focus_preview_image_by_color('{{ str_replace('#','',$color) }}')">
+                                                                            <img src="{{ asset('storage/app/public/product/color-theme/'.$theme_image) }}"
+                                                                                alt="Product color"
+                                                                                class="border border-2 rounded border-light"
+                                                                                style="width: 40px !important; height: 60px !important; object-fit: cover; prder-radius: 5px;">
+                                                                        </label>
+                                                                    @else
+                                                                        <label style="background-color: {{ $color }}; border: 1px solid black;"
+                                                                            for="{{ $product->id }}-color-{{ str_replace('#','',$color) }}"
+                                                                            data-toggle="tooltip" onclick="focus_preview_image_by_color('{{ str_replace('#','',$color) }}')">
+                                                                        <span class="outline"></span></label>
+                                                                    @endif
                                                                 </li>
                                                             @endif
                                                         @endforeach
