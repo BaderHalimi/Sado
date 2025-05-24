@@ -31,6 +31,23 @@
         @endphp
 
         @foreach ($combinations as $key => $combination)
+            @php
+                $sku = $combination['sku'];
+                $str = '';
+				foreach ($combination as $key => $item) {
+					if ($key > 0) {
+						$str .= '-' . str_replace(' ', '', $item);
+					} else {
+						if ($colors_active == 1) {
+							$color_name = \App\Model\Color::where('code', $item)->first()->name;
+							$str .= $color_name;
+							$code = str_replace('#', '',$item);
+						} else {
+							$str .= str_replace(' ', '', $item);
+						}
+					}
+				}
+            @endphp
             <tr>
                 <td class="text-center">
                     {{ $serial++ }}
