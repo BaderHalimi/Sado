@@ -16,6 +16,7 @@ use MyFatoorah\Library\API\Payment\MyFatoorahPaymentEmbedded;
 use MyFatoorah\Library\API\Payment\MyFatoorahPaymentStatus;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class MyFatoorahController extends Controller
@@ -346,7 +347,7 @@ class MyFatoorahController extends Controller
                 try {
                     $order_id = OrderManager::generate_order($data);
                 } catch (\Throwable $e) {
-                    dd($e->getMessage(), $e->getFile(), $e->getLine());
+                    Log::error($e->getMessage().' | '. $e->getFile().' | '. $e->getLine());
                 }                
                 unset($data['payment_method']);
                 unset($data['cart_group_id']);

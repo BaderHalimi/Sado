@@ -26,10 +26,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use GuzzleHttp\Client;
-
-
-
-
+use Illuminate\Support\Facades\Log;
 
 class OrderManager
 {
@@ -842,7 +839,7 @@ class OrderManager
             // dd($or);
             foreach ($countries as $code => $name) {
                 // dd($or);
-                if (strcasecmp($name, $or['billing_address_data']['country']) === 0) {
+                if (strcasecmp($name, $or['billing_address_data']?$or['billing_address_data']['country']:'') === 0) {
                     $c_ctn_code = $code;
                 }
                 
@@ -1300,7 +1297,8 @@ class OrderManager
                 Mail::to($seller->email)->send(new \App\Mail\OrderReceivedNotifySeller($order_id));
             }
         } catch (\Exception $exception) {
-            dd($exception);
+            Log::error('Error sending order email: ' . $exception->getMessage());
+            // dd($exception);
         }
 
         return $order_id;
