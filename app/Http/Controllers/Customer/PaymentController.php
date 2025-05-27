@@ -21,6 +21,7 @@ use App\Library\Payer;
 use App\Traits\Payment;
 use App\Library\Payment as PaymentInfo;
 use App\Library\Receiver;
+use App\Model\PaymentRequest;
 use Brian2694\Toastr\Facades\Toastr;
 use function App\CPU\currency_converter;
 use function App\CPU\translate;
@@ -44,9 +45,9 @@ class PaymentController extends Controller
 
         if ($validator->fails()) { //api
             $errors = Helpers::error_processor($validator);
-            if(in_array($request->payment_request_from, ['app', 'react'])){
+            if (in_array($request->payment_request_from, ['app', 'react'])) {
                 return response()->json(['errors' => Helpers::error_processor($validator)], 403);
-            }else{
+            } else {
                 foreach ($errors as $value) {
                     Toastr::error(translate($value['message']));
                 }
@@ -57,13 +58,13 @@ class PaymentController extends Controller
         $cart_group_ids = CartManager::get_cart_group_ids();
         $carts = Cart::whereIn('cart_group_id', $cart_group_ids)->get();
         $product_stock = CartManager::product_stock_check($carts);
-        if(!$product_stock && in_array($request->payment_request_from, ['app', 'react'])){
+        if (!$product_stock && in_array($request->payment_request_from, ['app', 'react'])) {
             return response()->json(['errors' => ['code' => 'product-stock', 'message' => 'The following items in your cart are currently out of stock']], 403);
-        }elseif(!$product_stock){
+        } elseif (!$product_stock) {
             Toastr::error(translate('the_following_items_in_your_cart_are_currently_out_of_stock'));
             return redirect()->route('shop-cart');
         }
-        if(in_array($request->payment_request_from, ['app', 'react'])) {
+        if (in_array($request->payment_request_from, ['app', 'react'])) {
             $shippingMethod = Helpers::get_business_settings('shipping_method');
             $physical_product = false;
             foreach ($carts as $cart) {
@@ -95,9 +96,9 @@ class PaymentController extends Controller
 
         $redirect_link = $this->customer_payment_request($request);
 
-        if(in_array($request->payment_request_from, ['app', 'react'])) {
-            return response()->json(['redirect_link'=>$redirect_link], 200);
-        }else{
+        if (in_array($request->payment_request_from, ['app', 'react'])) {
+            return response()->json(['redirect_link' => $redirect_link], 200);
+        } else {
             return redirect($redirect_link);
         }
     }
@@ -107,30 +108,29 @@ class PaymentController extends Controller
         return response()->json(['message' => 'Payment succeeded'], 200);
     }
 
-  public function fail()
-{
-    return view('web-views.payment.payment_fail'); // Ensure this path matches where your new file is located
-}
+    public function fail()
+    {
+        return view('web-views.payment.payment_fail'); // Ensure this path matches where your new file is located
+    }
 
 
     public function web_payment_success(Request $request)
     {
-        if($request->flag == 'success') {
+        if ($request->flag == 'success') {
             if (session()->has('payment_mode') && session('payment_mode') == 'app') {
                 return response()->json(['message' => 'Payment succeeded'], 200);
             } else {
                 Toastr::success(translate('Payment_success'));
                 return view(VIEW_FILE_NAMES['order_complete']);
             }
-        }else{
-            if(session()->has('payment_mode') && session('payment_mode') == 'app'){
+        } else {
+            if (session()->has('payment_mode') && session('payment_mode') == 'app') {
                 return response()->json(['message' => 'Payment failed'], 403);
-            }else{
-                Toastr::error(translate('Payment_failed').'!');
+            } else {
+                Toastr::error(translate('Payment_failed') . '!');
                 return redirect(url('/'));
             }
         }
-
     }
 
     public function customer_payment_request(Request $request)
@@ -143,27 +143,27 @@ class PaymentController extends Controller
         // dd(session()->get('billing_address_id'));
         $user = Helpers::get_customer(request: $request);
         // if(in_array($request->payment_request_from, ['app', 'react'])){
-            $additional_data['customer_id'] = $request->customer_id;
-            $additional_data['is_guest'] = $request->is_guest;
-            $additional_data['order_note'] = $request['order_note'];
-            $additional_data['address_id'] = $request['address_id'];
-            $additional_data['billing_address_id'] = session()->get('billing_address_id');
-            $additional_data['address_id'] = session()->get('billing_address_id');
-            $additional_data['coupon_code'] = $request['coupon_code'];
-            $additional_data['coupon_discount'] = $request['coupon_discount'];
-            $additional_data['payment_request_from'] = $request->payment_request_from;
+        $additional_data['customer_id'] = $request->customer_id;
+        $additional_data['is_guest'] = $request->is_guest;
+        $additional_data['order_note'] = $request['order_note'];
+        $additional_data['address_id'] = $request['address_id'];
+        $additional_data['billing_address_id'] = session()->get('billing_address_id');
+        $additional_data['address_id'] = session()->get('billing_address_id');
+        $additional_data['coupon_code'] = $request['coupon_code'];
+        $additional_data['coupon_discount'] = $request['coupon_discount'];
+        $additional_data['payment_request_from'] = $request->payment_request_from;
         // }
 
         $currency_model = Helpers::get_business_settings('currency_model');
         // if ($currency_model == 'multi_currency') {
         //     $currency_code = 'SAR';
         // } else {
-            $default = BusinessSetting::where(['type' => 'system_default_currency'])->first()->value;
-            $currency_code = Currency::find($default)->code;
-            // dd($currency_code);
+        $default = BusinessSetting::where(['type' => 'system_default_currency'])->first()->value;
+        $currency_code = Currency::find($default)->code;
+        // dd($currency_code);
         // }
 
-        if(in_array($request->payment_request_from, ['app', 'react'])) {
+        if (in_array($request->payment_request_from, ['app', 'react'])) {
             $cart_group_ids = CartManager::get_cart_group_ids($request);
             $cart_amount = 0;
             $shipping_cost_saved = 0;
@@ -172,7 +172,7 @@ class PaymentController extends Controller
                 $shipping_cost_saved += CartManager::get_shipping_cost_saved_for_free_delivery($group_id);
             }
             $payment_amount = $cart_amount - $request['coupon_discount'] - $shipping_cost_saved;
-        }else{
+        } else {
             $discount = session()->has('coupon_discount') ? session('coupon_discount') : 0;
             $order_wise_shipping_discount = CartManager::order_wise_shipping_discount();
             $shipping_cost_saved = CartManager::get_shipping_cost_saved_for_free_delivery();
@@ -180,17 +180,17 @@ class PaymentController extends Controller
         }
 
         $customer = Helpers::get_customer($request);
-        $address= ShippingAddress::where(['customer_id'=>$request->customer_id, 'is_guest'=>0])->latest()->first();
-        if($customer == 'offline'){
-            $address = ShippingAddress::where(['customer_id'=>$request->customer_id, 'is_guest'=>1])->latest()->first();
-            if($address){
+        $address = ShippingAddress::where(['customer_id' => $request->customer_id, 'is_guest' => 0])->latest()->first();
+        if ($customer == 'offline') {
+            $address = ShippingAddress::where(['customer_id' => $request->customer_id, 'is_guest' => 1])->latest()->first();
+            if ($address) {
                 $payer = new Payer(
                     $address->contact_person_name,
                     $address->email,
                     $address->phone,
                     ''
                 );
-            }else {
+            } else {
                 $payer = new Payer(
                     'Contact person name',
                     '',
@@ -198,9 +198,9 @@ class PaymentController extends Controller
                     ''
                 );
             }
-        }else{
+        } else {
             $payer = new Payer(
-                $customer->f_name . ' ' . $customer->l_name ,
+                $customer->f_name . ' ' . $customer->l_name,
                 $customer->email,
                 $customer->phone,
                 ''
@@ -213,7 +213,7 @@ class PaymentController extends Controller
             currency_code: $currency_code,
             payment_method: $request->payment_method,
             payment_platform: $request->payment_platform,
-            payer_id: $customer=='offline' ? $request->customer_id : $customer->id,
+            payer_id: $customer == 'offline' ? $request->customer_id : $customer->id,
             receiver_id: '100',
             additional_data: $additional_data,
             payment_amount: $payment_amount,
@@ -222,7 +222,7 @@ class PaymentController extends Controller
             attribute_id: '10001'
         );
 
-        $receiver_info = new Receiver('receiver_name','example.png');
+        $receiver_info = new Receiver('receiver_name', 'example.png');
 
         $redirect_link = Payment::generate_link($payer, $payment_info, $receiver_info);
 
@@ -231,9 +231,8 @@ class PaymentController extends Controller
 
     public function customer_add_to_fund_request(Request $request)
     {
-        if(Helpers::get_business_settings('add_funds_to_wallet') != 1)
-        {
-            if(in_array($request->payment_request_from, ['app', 'react'])){
+        if (Helpers::get_business_settings('add_funds_to_wallet') != 1) {
+            if (in_array($request->payment_request_from, ['app', 'react'])) {
                 return response()->json(['message' => 'Add funds to wallet is deactivated'], 403);
             }
 
@@ -249,9 +248,9 @@ class PaymentController extends Controller
 
         if ($validator->fails()) {
             $errors = Helpers::error_processor($validator);
-            if(in_array($request->payment_request_from, ['app', 'react'])){
+            if (in_array($request->payment_request_from, ['app', 'react'])) {
                 return response()->json(['errors' => $errors]);
-            }else{
+            } else {
                 foreach ($errors as $value) {
                     Toastr::error(translate($value['message']));
                 }
@@ -274,16 +273,15 @@ class PaymentController extends Controller
         $minimum_add_fund_amount = Helpers::get_business_settings('minimum_add_fund_amount') ?? 0;
         $maximum_add_fund_amount = Helpers::get_business_settings('maximum_add_fund_amount') ?? 0;
 
-        if(!(Convert::usdPaymentModule($request->amount, $current_currency) >= Convert::usdPaymentModule($minimum_add_fund_amount, 'USD')) || !(Convert::usdPaymentModule($request->amount, $current_currency) <= Convert::usdPaymentModule($maximum_add_fund_amount, 'USD')))
-        {
+        if (!(Convert::usdPaymentModule($request->amount, $current_currency) >= Convert::usdPaymentModule($minimum_add_fund_amount, 'USD')) || !(Convert::usdPaymentModule($request->amount, $current_currency) <= Convert::usdPaymentModule($maximum_add_fund_amount, 'USD'))) {
             $errors = [
                 'minimum_amount' => $minimum_add_fund_amount ?? 0,
                 'maximum_amount' => $maximum_add_fund_amount ?? 1000,
             ];
-            if(in_array($request->payment_request_from, ['app', 'react'])){
+            if (in_array($request->payment_request_from, ['app', 'react'])) {
                 return response()->json($errors, 202);
-            }else{
-                Toastr::error(translate('the_amount_needs_to_be_between').' '.currency_converter($minimum_add_fund_amount).' - '.currency_converter($maximum_add_fund_amount));
+            } else {
+                Toastr::error(translate('the_amount_needs_to_be_between') . ' ' . currency_converter($minimum_add_fund_amount) . ' - ' . currency_converter($maximum_add_fund_amount));
                 return back();
             }
         }
@@ -296,7 +294,7 @@ class PaymentController extends Controller
 
         $customer = Helpers::get_customer($request);
 
-        if(in_array($request->payment_request_from, ['app', 'react'])){
+        if (in_array($request->payment_request_from, ['app', 'react'])) {
             $additional_data['customer_id'] = $customer->id;
             $additional_data['payment_request_from'] = $request->payment_request_from;
         }
@@ -323,14 +321,45 @@ class PaymentController extends Controller
             attribute_id: '10001'
         );
 
-        $receiver_info = new Receiver('receiver_name','example.png');
+        $receiver_info = new Receiver('receiver_name', 'example.png');
 
         $redirect_link = Payment::generate_link($payer, $payment_info, $receiver_info);
 
-        if(in_array($request->payment_request_from, ['app', 'react'])) {
-            return response()->json(['redirect_link'=>$redirect_link], 200);
-        }else{
+        if (in_array($request->payment_request_from, ['app', 'react'])) {
+            return response()->json(['redirect_link' => $redirect_link], 200);
+        } else {
             return redirect($redirect_link);
         }
+    }
+
+    public function verifyPayment(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'payment_id' => 'required|uuid',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $payment_id = $request->payment_id;
+        $paymentRequest = PaymentRequest::where('id', $payment_id)->first();
+
+        if (!$paymentRequest) {
+            return response()->json(['message' => 'Payment request not found'], 404);
+        }
+
+        if ($paymentRequest->is_paid == 1) {
+            return response()->json(['message' => 'Payment verified successfully'], 200);
+        }
+
+        if ($paymentRequest->is_paid == 0) {
+            return response()->json(['message' => 'Payment Failed'], 200);
+        }
+
+        return response()->json(['message' => 'Wrong request'], 404);
     }
 }

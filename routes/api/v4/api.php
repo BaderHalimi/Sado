@@ -221,6 +221,7 @@ Route::group(['namespace' => 'api\v4', 'prefix' => 'v4', 'middleware' => ['api_l
 
     Route::group(['prefix' => 'digital-payment','middleware'=>'apiGuestCheck'], function () {
         Route::post('/', [PaymentController::class, 'payment']);
+        Route::post('digital-payment/verify', [PaymentController::class, 'verifyPayment']);
     });
 
     Route::group(['prefix' => 'add-to-fund','middleware'=>'auth:api'], function () {

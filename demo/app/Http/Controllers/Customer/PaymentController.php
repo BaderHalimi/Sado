@@ -33,6 +33,29 @@ class PaymentController extends Controller
 {
     use Payment;
 
+    public function verifyPayment(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'payment_id' => 'required|uuid',
+        ]);
+        $payment_id = $validated['payment_id'];
+        $paymentRequest = PaymentRequest::where('id', $payment_id)
+            ->where('attribute', $request->attribute)
+            ->first();
+
+        if (!$paymentRequest) {
+            return response()->json(['message' => 'Payment request not found'], 404);
+        }
+
+        if ($paymentRequest->is_paid == 1) {
+            return response()->json(['message' => 'Payment verified successfully'], 200);
+        }
+        if ($paymentRequest->is_paid == 0) {
+            return response()->json(['message' => 'Payment Failed'], 200);
+        }
+        return response()->json(['message' => 'wrong request'], 404);
+    }
+
     public function payment(Request $request): JsonResponse|Redirector|RedirectResponse
     {
         $user = Helpers::get_customer($request);
@@ -200,7 +223,7 @@ class PaymentController extends Controller
 
     public function web_payment_success(Request $request)
     {
-        if($request->flag == 'success') {
+        if ($request->flag == 'success') {
             if (session()->has('payment_mode') && session('payment_mode') == 'app') {
                 return response()->json(['message' => 'Payment succeeded'], 200);
             } else {
@@ -209,22 +232,21 @@ class PaymentController extends Controller
                 session()->forget('newCustomerRegister');
                 return view(VIEW_FILE_NAMES['order_complete'], compact('isNewCustomerInSession'));
             }
-        }else{
-            if(session()->has('payment_mode') && session('payment_mode') == 'app'){
+        } else {
+            if (session()->has('payment_mode') && session('payment_mode') == 'app') {
                 return response()->json(['message' => 'Payment failed'], 403);
-            }else{
-                Toastr::error(translate('Payment_failed').'!');
+            } else {
+                Toastr::error(translate('Payment_failed') . '!');
                 return redirect(url('/'));
             }
         }
-
     }
 
     public function getCustomerPaymentRequest(Request $request, $orderAdditionalData = []): mixed
     {
         $additionalData = [
             'business_name' => getWebConfig(name: 'company_name'),
-            'business_logo' => getStorageImages(path: getWebConfig('company_web_logo'), type:'shop'),
+            'business_logo' => getStorageImages(path: getWebConfig('company_web_logo'), type: 'shop'),
             'payment_mode' => $request->has('payment_platform') ? $request['payment_platform'] : 'web',
         ];
 
