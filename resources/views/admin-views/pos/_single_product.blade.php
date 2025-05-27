@@ -9,7 +9,7 @@
             {{ $product['name'] }}
         </div>
         <div class="pos-product-item_price">
-            {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($product['unit_price']- \App\CPU\Helpers::get_product_discount($product, $product['unit_price'])))  }}
+            {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($product['unit_price']- \App\CPU\Helpers::get_product_discount($product, $product['unit_price'])))  !!}
         </div>
        <div class="pos-product-item_hover-content">
            <div class="d-flex flex-wrap gap-2">
