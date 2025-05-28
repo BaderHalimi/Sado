@@ -75,7 +75,7 @@
                             @foreach($withdraw_req as $k=>$wr)
                                 <tr>
                                     <td scope="row">{{$withdraw_req->firstItem()+$k}}</td>
-                                    <td>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($wr['amount']))}}</td>
+                                    <td>{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($wr['amount']))!!}</td>
 
                                     <td>
                                         @if (isset($wr->delivery_men))

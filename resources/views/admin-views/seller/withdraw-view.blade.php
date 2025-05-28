@@ -36,7 +36,7 @@
                             <div class="col-md-4 mb-2 mb-md-0">
                                 <div class="flex-start flex-wrap">
                                     <div><h5 class="text-capitalize">{{translate('amount')}} : </h5></div>
-                                    <div class="mx-1"><h5>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\Convert::default($withdraw_request->amount))}}</h5></div>
+                                    <div class="mx-1"><h5>{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\Convert::default($withdraw_request->amount))!!}</h5></div>
                                 </div>
                                 <div class="flex-start flex-wrap">
                                     <div><h5>{{translate('request_time')}} : </h5></div>

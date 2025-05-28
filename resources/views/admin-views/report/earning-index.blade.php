@@ -130,7 +130,7 @@
                                     <div class="media-body {{Session::get('direction') === "rtl" ? 'text-right' : 'text-left'}}">
                                         <h4 class="mb-1">{{translate('total_earning')}} </h4>
                                         <span class="font-size-sm text-success">
-                                          <i class="tio-trending-up"></i> {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_earning))}}
+                                          <i class="tio-trending-up"></i> {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_earning))!!}
                                         </span>
                                     </div>
 
@@ -177,7 +177,7 @@
                                     <div class="media-body {{Session::get('direction') === "rtl" ? 'text-right' : 'text-left'}}">
                                         <h4 class="mb-1">{{translate('total_Tax')}} </h4>
                                         <span class="font-size-sm text-warning">
-                                          <i class="tio-trending-up"></i>  {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_tax))}}
+                                          <i class="tio-trending-up"></i>  {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_tax))!!}
                                         </span>
                                     </div>
                                 </div>
@@ -222,7 +222,7 @@
                                     <div class="media-body {{Session::get('direction') === "rtl" ? 'text-right' : 'text-left'}}">
                                         <h4 class="mb-1">{{translate('total_commission')}} </h4>
                                         <span class="font-size-sm text-primary">
-                                          <i class="tio-trending-up"></i>  {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_commission))}}
+                                          <i class="tio-trending-up"></i>  {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_commission))!!}
                                         </span>
                                     </div>
                                 </div>

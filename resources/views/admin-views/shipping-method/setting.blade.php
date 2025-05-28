@@ -267,7 +267,7 @@
                                     {{$method['duration']}}
                                 </td>
                                 <td>
-                                    {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($method['cost']))}}
+                                    {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($method['cost']))!!}
                                 </td>
                                 <td>
                                     <form action="{{route('admin.business-settings.shipping-method.status-update')}}" method="post" id="shipping_methods{{$method['id']}}_form" class="shipping_methods_form">

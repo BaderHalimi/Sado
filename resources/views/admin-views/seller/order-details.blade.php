@@ -198,7 +198,7 @@
                                                          alt="Image Description">
                                                     <div>
                                                         <h6 class="title-color">{{substr($detail->product_all_status['name'],0,30)}}{{strlen($detail->product_all_status['name'])>10?'...':''}}</h6>
-                                                        <div><strong>{{translate('price')}} :</strong> {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($detail['price']))}}</div>
+                                                        <div><strong>{{translate('price')}} :</strong> {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($detail['price']))!!}</div>
                                                         <div><strong>{{translate('qty')}} :</strong> {{$detail->qty}}</div>
                                                     </div>
                                                 </div>
@@ -210,16 +210,16 @@
                                             </td>
                                             <td>{{$detail['variant']}}</td>
                                             <td>
-                                                {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($detail['tax']))}}
+                                                {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($detail['tax']))!!}
                                                 @if($detail->product_all_status->tax_model == 'include')
                                                     <span class="ml-2" data-toggle="tooltip" data-placement="top" title="{{translate('tax_included')}}">
                                                         <img class="info-img" src="{{asset('/public/assets/back-end/img/info-circle.svg')}}" alt="img">
                                                     </span>
                                                 @endif
                                             </td>
-                                            <td>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($detail['discount']))}}</td>
+                                            <td>{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($detail['discount']))!!}</td>
                                             @php($subtotal=$detail['price']*$detail->qty+$detail['tax']-$detail['discount'])
-                                            <td>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($subtotal))}}</td>
+                                            <td>{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($subtotal))!!}</td>
                                         </tr>
                                         @php($item_price+=$detail['price'])
                                         @php($discount+=$detail['discount'])
@@ -277,30 +277,30 @@
                                 <dl class="row gy-1 text-sm-right">
                                     <dt class="col-5">{{translate('item_price')}}</dt>
                                     <dd class="col-6 title-color">
-                                        <strong>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item_price))}}</strong>
+                                        <strong>{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item_price))!!}</strong>
                                     </dd>
                                     <dt class="col-5">{{translate('sub_total')}}</dt>
                                     <dd class="col-6 title-color">
-                                        <strong>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total))}}</strong>
+                                        <strong>{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total))!!}</strong>
                                     </dd>
                                     <dt class="col-5">{{translate('coupon_discount')}}</dt>
                                     <dd class="col-6 title-color">
-                                        - {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($coupon_discount))}}
+                                        - {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($coupon_discount))!!}
                                     </dd>
                                     <dt class="col-5 text-uppercase">{{translate('vat')}}/{{translate('tax')}}</dt>
                                     <dd class="col-6 title-color">
-                                        <strong>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($tax))}}</strong>
+                                        <strong>{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($tax))!!}</strong>
                                     </dd>
                                     <dt class="col-5">{{translate('shipping')}}</dt>
                                     <dd class="col-6 title-color">
-                                        <strong>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($shipping))}}</strong>
+                                        <strong>{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($shipping))!!}</strong>
                                     </dd>
 
                                     @php($delivery_fee_discount = 0)
                                     @if ($order['is_shipping_free'])
                                         <dt class="col-5">{{translate('delivery_fee_discount')}} ({{ translate($order['free_delivery_bearer']) }} {{translate('bearer')}})</dt>
                                         <dd class="col-6 title-color">
-                                            - {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($shipping))}}
+                                            - {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($shipping))!!}
                                         </dd>
                                         @php($delivery_fee_discount = $shipping)
                                     @endif
@@ -308,14 +308,14 @@
                                     @if($order['coupon_discount_bearer'] == 'inhouse' && !in_array($order['coupon_code'], [0, NULL]))
                                         <dt class="col-5">{{translate('coupon_discount')}} ({{translate('admin_bearer')}})</dt>
                                         <dd class="col-6 title-color">
-                                            + {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($coupon_discount))}}
+                                            + {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($coupon_discount))!!}
                                         </dd>
                                         @php($total += $coupon_discount)
                                     @endif
 
                                     <dt class="col-5"><strong>{{translate('total')}}</strong></dt>
                                     <dd class="col-6 title-color">
-                                        <strong>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total+$shipping-$coupon_discount -$delivery_fee_discount))}}</strong>
+                                        <strong>{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total+$shipping-$coupon_discount -$delivery_fee_discount))!!}</strong>
                                     </dd>
                                 </dl>
                                 <!-- End Row -->

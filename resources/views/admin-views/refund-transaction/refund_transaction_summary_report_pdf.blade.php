@@ -315,21 +315,21 @@
                         <td class="text-center">1</td>
                         <td>{{translate('total_expense_amount')}}</td>
                         <td class="text-right">
-                            {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_expense'])) }}
+                            {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_expense'])) !!}
                         </td>
                     </tr>
                     <tr>
                         <td class="text-center">2</td>
                         <td>{{translate('free_delivery_amount')}}</td>
                         <td class="text-right" style="padding: 3px 0;">
-                            {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['free_delivery'])) }}
+                            {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['free_delivery'])) !!}
                         </td>
                     </tr>
                     <tr>
                         <td class="text-center">3</td>
                         <td>{{translate('coupon_discount_amount')}}</td>
                         <td class="text-right" style="padding: 3px 0;">
-                            {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['coupon_discount'])) }}
+                            {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['coupon_discount'])) !!}
                         </td>
                     </tr>
                 </tbody>

@@ -215,9 +215,9 @@
                                 @endif
 
                                 </td>
-                                <td style="padding:5px;">{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($details['price']))}}</td>
+                                <td style="padding:5px;">{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($details['price']))!!}</td>
                                 <td style="padding:5px;">{{$details->qty}}</td>
-                                <td style="padding:5px;">{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($subtotal))}}</td>
+                                <td style="padding:5px;">{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($subtotal))!!}</td>
                             </tr>
                             <?php
                                 $sub_total+=$details['price']*$details['qty'];
@@ -254,40 +254,40 @@
 
                         <tr>
                             <th  ><b>{{\App\CPU\translate('sub_total')}} : </b></th>
-                            <td>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($sub_total))}}</td>
+                            <td>{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($sub_total))!!}</td>
 
                         </tr>
                         <tr>
                             <td>{{\App\CPU\translate('tax')}}  : </td>
-                            <td>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_tax))}}</td>
+                            <td>{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_tax))!!}</td>
                         </tr>
                         @if($order->order_type == 'default_type')
                         <tr>
                             <td  >{{\App\CPU\translate('shipping')}} : </td>
-                            <td>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($shipping))}}</td>
+                            <td>{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($shipping))!!}</td>
                         </tr>
                         @endif
                         <tr>
                             <td  >{{\App\CPU\translate('coupon_discount')}} : </td>
                             <td>
-                                - {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->discount_amount))}}</td>
+                                - {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->discount_amount))!!}</td>
                         </tr>
                         <tr class="border-bottom">
                             <td  >{{\App\CPU\translate('discount_on_product')}} : </td>
                             <td>
-                                - {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_discount_on_product))}}</td>
+                                - {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_discount_on_product))!!}</td>
                         </tr>
                         @if ($order->order_type != 'default_type')
                         <tr class="border-bottom">
                             <th  >{{\App\CPU\translate('extra_discount')}} : </th>
                             <td>
-                                - {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($extra_discount))}}</td>
+                                - {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($extra_discount))!!}</td>
                         </tr>
                         @endif
                         <tr class="bg-primary">
                             <th class="text-left"><b class="text-white">{{\App\CPU\translate('total')}} : </b></th>
                             <td class="text-white">
-                                {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->order_amount))}}
+                                {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->order_amount))!!}
                             </td>
                         </tr>
                         </tbody>

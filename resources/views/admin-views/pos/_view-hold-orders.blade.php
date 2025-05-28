@@ -118,7 +118,7 @@
                                                     <div class="text-muted">{{ translate('qty') }}: {{ $cartItem['quantity'] }}</div>
                                                 </div>
                                             </div>
-                                            <h5>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($product_subtotal))}}</h5>
+                                            <h5>{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($product_subtotal))!!}</h5>
                                         </div>
                                         @endif
                                         @endforeach
@@ -152,9 +152,9 @@
 
                             <td>
                                 @if (($total+$total_tax-$coupon_discount) != $subtotal)
-                                    <del>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency(round($subtotal, 2)))}}</del>
+                                    <del>{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency(round($subtotal, 2)))!!}</del>
                                 @endif
-                                {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency(round($total+$total_tax-$coupon_discount, 2)))}}</td>
+                                {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency(round($total+$total_tax-$coupon_discount, 2)))!!}</td>
                             <td>
                                 <div class="d-flex justify-content-center gap-2">
                                     <button type="button" class="btn btn-soft-warning" onclick="cart_change('{{ $single_cart }}')">{{translate('resume')}}</button>

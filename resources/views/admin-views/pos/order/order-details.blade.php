@@ -260,7 +260,7 @@
                                     </dd>
                                     <dt class="col-sm-5">{{translate('total')}}</dt>
                                     <dd class="col-sm-6 title-color">
-                                        <strong>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total+$shipping-$extra_discount-$coupon_discount))}}</strong>
+                                        <strong>{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total+$shipping-$extra_discount-$coupon_discount))!!}</strong>
                                     </dd>
                                 </dl>
                                 <!-- End Row -->

@@ -307,28 +307,28 @@
                         <td class="text-center">1</td>
                         <td>{{translate('total_Expense_Amount')}}</td>
                         <td class="text-right">
-                            {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_expense'])) }}
+                            {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_expense'])) !!}
                         </td>
                     </tr>
                     <tr>
                         <td class="text-center">2</td>
                         <td>{{translate('free_Delivery_Amount')}}</td>
                         <td class="text-right">
-                            {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['free_delivery'])) }}
+                            {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['free_delivery'])) !!}
                         </td>
                     </tr>
                     <tr>
                         <td class="text-center">3</td>
                         <td>{{translate('coupon_Discount_Amount')}}</td>
                         <td class="text-right">
-                            {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['coupon_discount'])) }}
+                            {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['coupon_discount'])) !!}
                         </td>
                     </tr>
                     <tr>
                         <td class="text-center">4</td>
                         <td>{{translate('free_Shipping_Over_Order_Amount_Discount')}}</td>
                         <td class="text-right">
-                            {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['free_over_amount_discount'])) }}
+                            {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['free_over_amount_discount'])) !!}
                         </td>
                     </tr>
                 </tbody>

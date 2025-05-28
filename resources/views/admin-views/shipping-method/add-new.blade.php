@@ -95,7 +95,7 @@
                                             {{$method['duration']}}
                                         </td>
                                         <td>
-                                            {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($method['cost']))}}
+                                            {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($method['cost']))!!}
                                         </td>
 
                                         <td>

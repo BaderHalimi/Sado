@@ -71,10 +71,10 @@
                                     </a>
                                 </td>
                                 <td>
-                                    {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($p['shipping_cost']))}}
+                                    {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($p['shipping_cost']))!!}
                                 </td>
                                 <td>
-                                    {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($p['temp_shipping_cost']))}}
+                                    {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($p['temp_shipping_cost']))!!}
                                 </td>
 
                                 <td>

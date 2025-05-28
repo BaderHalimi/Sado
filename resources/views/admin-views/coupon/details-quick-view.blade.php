@@ -13,12 +13,12 @@
         <div class="coupon-info">
             <div class="coupon-info-item">
                 <span>{{translate('minimum_purchase')}} :</span>
-                <strong id="min_purchase">{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($coupon->min_purchase))}}</strong>
+                <strong id="min_purchase">{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($coupon->min_purchase))!!}</strong>
             </div>
             @if($coupon->coupon_type != 'free_delivery' && $coupon->discount_type == 'percentage')
             <div class="coupon-info-item" id="max_discount_modal_div">
                 <span>{{translate('maximum_discount')}} : </span>
-                <strong id="max_discount">{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($coupon->max_discount))}}</strong>
+                <strong id="max_discount">{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($coupon->max_discount))!!}</strong>
             </div>
             @endif
             <div class="coupon-info-item">
@@ -42,7 +42,7 @@
             @else
                 <div class="d-flex">
                     <h4 id="discount">
-                        {{$coupon->discount_type=='amount'?\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($coupon->discount)):$coupon->discount.'%'}}
+                        {!!$coupon->discount_type=='amount'?\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($coupon->discount)):$coupon->discount.'%'!!}
                     </h4>
                 </div>
 

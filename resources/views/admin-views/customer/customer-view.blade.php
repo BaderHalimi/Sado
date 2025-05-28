@@ -79,7 +79,7 @@
                                     <td>
                                         <a href="{{route('admin.orders.details',['id'=>$order['id']])}}" class="title-color hover-c1">{{$order['id']}}</a>
                                     </td>
-                                    <td> {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order['order_amount']))}}</td>
+                                    <td> {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order['order_amount']))!!}</td>
 
                                     <td>
                                         <div class="d-flex justify-content-center gap-10">

@@ -271,38 +271,38 @@
                     <tr>
                         <td>1</td>
                         <td>{{translate('in_House_earning')}}</td>
-                        <td class="text-right">{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($earning_data['inhouse_earning'])) }}</td>
+                        <td class="text-right">{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($earning_data['inhouse_earning'])) !!}</td>
                     </tr>
                     <tr>
                         <td>2</td>
                         <td>{{translate('admin_Commission')}}</td>
-                        <td class="text-right">{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($earning_data['admin_commission'])) }}</td>
+                        <td class="text-right">{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($earning_data['admin_commission'])) !!}</td>
                     </tr>
                     <tr>
                         <td>3</td>
                         <td>{{translate('earning_From_Shipping')}}</td>
-                        <td class="text-right">{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($earning_data['shipping_earn'])) }}</td>
+                        <td class="text-right">{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($earning_data['shipping_earn'])) !!}</td>
                     </tr>
                     <tr>
                         <td>4</td>
                         <td>{{translate('discount_Given')}}</td>
-                        <td class="text-right">{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($earning_data['discount_given'])) }}</td>
+                        <td class="text-right">{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($earning_data['discount_given'])) !!}</td>
                     </tr>
                     <tr>
                         <td>5</td>
                         <td>{{translate('total_Tax')}}</td>
-                        <td class="text-right">{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($earning_data['total_tax'])) }}</td>
+                        <td class="text-right">{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($earning_data['total_tax'])) !!}</td>
                     </tr>
                     <tr>
                         <td>6</td>
                         <td>{{translate('refund_Given')}}</td>
-                        <td class="text-right">{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($earning_data['refund_given'])) }}</td>
+                        <td class="text-right">{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($earning_data['refund_given'])) !!}</td>
                     </tr>
                     <tr>
                         <td colspan="2" class="text-right">
                             <b>{{translate('total_Earning')}}</b>
                         </td>
-                        <td class="text-right"><b>{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($earning_data['total_earning'])) }}</b></td>
+                        <td class="text-right"><b>{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($earning_data['total_earning'])) !!}</b></td>
                     </tr>
                 </tbody>
             </table>

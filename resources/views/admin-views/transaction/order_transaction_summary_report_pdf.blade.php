@@ -363,49 +363,49 @@
                     <td class="text-center">1</td>
                     <td>{{translate('total_Ordered_Product_Price')}}</td>
                     <td class="text-right">
-                        {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_ordered_product_price'])) }}
+                        {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_ordered_product_price'])) !!}
                     </td>
                 </tr>
                 <tr>
                     <td class="text-center">2</td>
                     <td>{{translate('total_Product_Discount')}}</td>
                     <td class="text-right">
-                        {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_product_discount']))}}
+                        {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_product_discount']))!!}
                     </td>
                 </tr>
                 <tr>
                     <td class="text-center">3</td>
                     <td>{{translate('total_Coupon_Discount')}}</td>
                     <td class="text-right">
-                        {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_coupon_discount'])) }}
+                        {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_coupon_discount'])) !!}
                     </td>
                 </tr>
                 <tr>
                     <td class="text-center">4</td>
                     <td>{{translate('total_Discounted_Amount')}}</td>
                     <td class="text-right">
-                        {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_discounted_amount']))}}
+                        {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_discounted_amount']))!!}
                     </td>
                 </tr>
                 <tr>
                     <td class="text-center">5</td>
                     <td>{{translate('total')}} {{translate('VAT/TAX')}}</td>
                     <td class="text-right">
-                        {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_tax']))}}
+                        {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_tax']))!!}
                     </td>
                 </tr>
                 <tr>
                     <td class="text-center">6</td>
                     <td>{{translate('total_Delivery_Charge')}}</td>
                     <td class="text-right">
-                        {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_delivery_charge']))}}
+                        {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_delivery_charge']))!!}
                     </td>
                 </tr>
                 <tr>
                     <td class="text-center">7</td>
                     <td>{{translate('total_Order_Amount')}}</td>
                     <td class="text-right">
-                        {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_order_amount']))}}
+                        {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_order_amount']))!!}
                     </td>
                 </tr>
                 </tbody>
@@ -425,7 +425,7 @@
             {{translate('admin_Discount')}}
         </td>
         <td class="text-right">
-            {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_admin_discount']))}}
+            {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_admin_discount']))!!}
         </td>
     </tr>
     <tr>
@@ -433,7 +433,7 @@
             {{ translate('seller_Discount') }}
         </td>
         <td class="text-right">
-            {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_seller_discount']))}}
+            {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_seller_discount']))!!}
         </td>
     </tr>
     <tr>
@@ -441,7 +441,7 @@
             {{ translate('admin_Commission') }}
         </td>
         <td class="text-right">
-            {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_admin_commission']))}}
+            {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_admin_commission']))!!}
         </td>
     </tr>
     <tr>
@@ -449,7 +449,7 @@
             {{translate('admin_Net_Income')}}
         </td>
         <td class="text-right">
-            {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_admin_net_income']))}}
+            {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_admin_net_income']))!!}
         </td>
     </tr>
     <tr>
@@ -457,7 +457,7 @@
             {{translate('seller_Net_Income')}}
         </td>
         <td class="text-right">
-            {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_seller_net_income']))}}
+            {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_seller_net_income']))!!}
         </td>
     </tr>
     </tbody>
