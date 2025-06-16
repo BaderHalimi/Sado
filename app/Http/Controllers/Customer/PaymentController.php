@@ -7,6 +7,7 @@ use App\CPU\CartManager;
 use App\CPU\Convert;
 use App\CPU\Helpers;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\MyFatoorahController;
 use App\Model\BusinessSetting;
 use App\Model\CartShipping;
 use App\Model\Order;
@@ -146,9 +147,9 @@ class PaymentController extends Controller
         $additional_data['customer_id'] = $request->customer_id;
         $additional_data['is_guest'] = $request->is_guest;
         $additional_data['order_note'] = $request['order_note'];
-        $additional_data['address_id'] = $request['address_id'];
-        $additional_data['billing_address_id'] = session()->get('billing_address_id');
-        $additional_data['address_id'] = session()->get('billing_address_id');
+        $additional_data['address_id'] = session()->get('billing_address_id')??$request['address_id'];
+        $additional_data['billing_address_id'] = session()->get('billing_address_id')??$request['address_id'];
+        // $additional_data['address_id'] = session()->get('billing_address_id')??'';
         $additional_data['coupon_code'] = $request['coupon_code'];
         $additional_data['coupon_discount'] = $request['coupon_discount'];
         $additional_data['payment_request_from'] = $request->payment_request_from;
@@ -336,6 +337,8 @@ class PaymentController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'payment_id' => 'required|uuid',
+            'callback' => 'required|boolean',
+            'paymentId' => 'required_if:callback,1',
         ]);
 
         if ($validator->fails()) {
@@ -344,7 +347,11 @@ class PaymentController extends Controller
                 'errors' => $validator->errors(),
             ], 422);
         }
-
+        if ($request->callback == true) {
+            $req = new Request(attributes: ['payment_id' => $request->payment_id, 'paymentId' => $request->paymentId]);
+            $myf = new MyFatoorahController();
+            $status = $myf->callback();
+        }
         $payment_id = $request->payment_id;
         $paymentRequest = PaymentRequest::where('id', $payment_id)->first();
 

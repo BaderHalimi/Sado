@@ -105,9 +105,9 @@ class MyFatoorahController extends Controller
     /**
      * Example on how to map order data to MyFatoorah
      * You can get the data using the order object in your system
-     * 
+     *
      * @param int|string $orderId
-     * 
+     *
      * @return array
      */
     private function getPayLoadData($data = null)
@@ -137,11 +137,12 @@ class MyFatoorahController extends Controller
     /**
      * Get MyFatoorah Payment Information
      * Provide the callback method with the paymentId
-     * 
+     *
      * @return Response
      */
     public function callback()
     {
+        // dd(request());
         try {
             $paymentId = request('paymentId');
             // dd($paymentId);
@@ -173,6 +174,8 @@ class MyFatoorahController extends Controller
             }
         } catch (Exception $ex) {
             $exMessage = __('myfatoorah.' . $ex->getMessage());
+            // return ;
+            return response()->json($exMessage);
             // $response  = ['IsSuccess' => 'false', 'Message' => $exMessage];
             // dd('hi');
             // $payment_data = $this->payment::where(['id' => request('payment_id')])->first();
@@ -190,7 +193,7 @@ class MyFatoorahController extends Controller
     /**
      * Example on how to Display the enabled gateways at your MyFatoorah account to be displayed on the checkout page
      * Provide the checkout method with the order id to display its total amount and currency
-     * 
+     *
      * @return View
      */
     public function checkout()
@@ -324,12 +327,13 @@ class MyFatoorahController extends Controller
     //-----------------------------------------------------------------------------------------------------------------------------------------
     function payment_success($payment_data)
     {
+        // dd($payment_data);
         if (isset($payment_data) && $payment_data['is_paid'] == 1) {
             $unique_id = OrderManager::gen_unique_id();
             $order_ids = [];
             $additional_data = json_decode($payment_data['additional_data']);
             $data = $payment_data->toArray();
-            
+
             $cart_group_ids = CartManager::get_cart_group_ids();
             session()->put('payment_mode', 'web');
             // dd('hi');
@@ -341,14 +345,14 @@ class MyFatoorahController extends Controller
                     'transaction_ref' => $payment_data['transaction_id'],
                     'order_group_id' => $unique_id,
                     'cart_group_id' => $group_id,
-                    
                 ];
                 // dd($data);
                 try {
                     $order_id = OrderManager::generate_order($data);
                 } catch (\Throwable $e) {
+                    // throw $e;
                     Log::error($e->getMessage().' | '. $e->getFile().' | '. $e->getLine());
-                }                
+                }
                 unset($data['payment_method']);
                 unset($data['cart_group_id']);
                 array_push($order_ids, $order_id);

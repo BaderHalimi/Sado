@@ -223,6 +223,8 @@ Route::group(['namespace' => 'api\v4', 'prefix' => 'v4', 'middleware' => ['api_l
         Route::post('/', [PaymentController::class, 'payment']);
         Route::post('digital-payment/verify', [PaymentController::class, 'verifyPayment']);
     });
+            Route::post('digital-payment/verify', [PaymentController::class, 'verifyPayment']);
+
 
     Route::group(['prefix' => 'add-to-fund','middleware'=>'auth:api'], function () {
         Route::get('bonus-list', 'UserWalletController@bonus_list');

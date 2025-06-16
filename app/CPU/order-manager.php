@@ -742,6 +742,7 @@ class OrderManager
         if ($req && session()->has('address_id') == false) {
             $address_id = isset($req['address_id']) ? $req['address_id'] : null;
         }
+        // dd($data);
 
         if ($req && session()->has('billing_address_id') == false) {
             $billing_address_id = isset($req['billing_address_id']) ? $req['billing_address_id'] : (session()->get('billing_address_id')??null);
@@ -842,13 +843,13 @@ class OrderManager
                 if (strcasecmp($name, $or['billing_address_data']?$or['billing_address_data']['country']:'') === 0) {
                     $c_ctn_code = $code;
                 }
-                
+
                 // if (strcasecmp($name, $or['shipping_address_data']['country']) === 0) {
                 //     $ship_ctn_code = $code;
                 // }
             }
             // Return null or any default value if the country name is not found
-
+            // dd($or);
         $consignee_address = '{
                 "name": "'.$or['billing_address_data']['contact_person_name'].'",
                 "company": "",

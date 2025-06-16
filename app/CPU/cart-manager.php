@@ -245,11 +245,14 @@ class CartManager
 
     public static function cart_clean_for_api_digital_payment($data)
     {
-        if ($data['request']['is_guest']) {
+        // dd($data);
+        if (isset($data['request'])?$data['request']['is_guest']:false) {
             $cart_ids = Cart::where(['customer_id' => $data['request']['customer_id'], 'is_guest'=>1])->groupBy('cart_group_id')->pluck('cart_group_id')->toArray();
         }else{
-            $cart_ids = Cart::where(['customer_id' =>  $data['request']['customer_id'], 'is_guest'=>'0'])->groupBy('cart_group_id')->pluck('cart_group_id')->toArray();
+            $cart_ids = Cart::where(['customer_id' =>  $data['payer_id']])->groupBy('cart_group_id')->pluck('cart_group_id')->toArray();
         }
+        // dd($data['payer_id']);
+        // dd($cart_ids);
 
         CartShipping::whereIn('cart_group_id', $cart_ids)->delete();
         Cart::whereIn('cart_group_id', $cart_ids)->delete();
@@ -610,7 +613,7 @@ class CartManager
         ];
     }
 
-    
+
 
     public static function get_shipping_cost_for_product_category_wise($product,$qty)
     {
