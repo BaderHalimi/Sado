@@ -230,6 +230,7 @@ class OrderController extends Controller
 
     public function place_order_by_wallet(Request $request)
     {
+        // dd($request->all());
         $cart_group_ids = CartManager::get_cart_group_ids($request);
         $carts = Cart::whereIn('cart_group_id', $cart_group_ids)->get();
 

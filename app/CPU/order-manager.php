@@ -712,8 +712,8 @@ class OrderManager
         }
         // dd(json_decode($data['additional_data'], true)['address_id']);
         // dd( );
-        $address_id =  isset(request()->addressId) ? request()->addressId : (session('address_id') ? session('address_id') : (json_decode($data['additional_data'], true)['address_id'] ?? null));
-        $billing_address_id = isset(request()->billingAddressId) ? request()->billingAddressId : (session('billing_address_id') ? session('billing_address_id') : (json_decode($data['additional_data'], true)['billing_address_id'] ?? null));
+        $address_id =  isset(request()->addressId) ? request()->addressId : (isset(request()->address_id) ? request()->address_id : (session('address_id') ? session('address_id') : (json_decode($data['additional_data'], true)['address_id'] ?? null)));
+        $billing_address_id = isset(request()->billingAddressId) ? request()->billingAddressId : (isset(request()->billing_address_id) ? request()->billing_address_id :(session('billing_address_id') ? session('billing_address_id') : (json_decode($data['additional_data']??json_encode(['billing_address_id'=>$address_id]), true)['billing_address_id'] ?? null)));
         $coupon_code = $coupon_process['coupon_code'];
         $coupon_bearer = $coupon_process['coupon_bearer'];
         $discount = $coupon_process['discount'];
@@ -736,12 +736,12 @@ class OrderManager
         }
 
         if ($req && session()->has('address_id') == false) {
-            $address_id = isset($req['address_id']) ? $req['address_id'] : (isset(request()->addressId) ? request()->addressId:null);
+            $address_id = isset($req['address_id']) ? $req['address_id'] : (isset(request()->addressId) ? request()->addressId : null);
         }
         // dd($data);
 
         if ($req && session()->has('billing_address_id') == false) {
-            $billing_address_id = isset($req['billing_address_id']) ? $req['billing_address_id'] : (isset(request()->billingAddressId) ? request()->billingAddressId:(session()->get('billing_address_id') ?? null));
+            $billing_address_id = isset($req['billing_address_id']) ? $req['billing_address_id'] : (isset(request()->billingAddressId) ? request()->billingAddressId : (session()->get('billing_address_id') ?? null));
         }
         // dd($billing_address_id);
 
