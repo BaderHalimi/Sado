@@ -137,7 +137,7 @@
                                         {{ translate('upload_image') }}</p>
                                 </div>
                             </label>
-                            <input type="file" name="logo" id="customFileUpload" class="custom-file-input"
+                            <input type="file" name="image" id="customFileUpload" class="custom-file-input"
                                 accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
                         </div>
                         {{-- <div class="col-sm-12">
