@@ -713,10 +713,10 @@ class OrderManager
         // dd(json_decode($data['additional_data'], true)['address_id']);
         // dd( );
         $address_id =  isset(request()->addressId) ? request()->addressId : (isset(request()->address_id) ? request()->address_id : (session('address_id') ? session('address_id') : (json_decode($data['additional_data'], true)['address_id'] ?? null)));
-        $billing_address_id = isset(request()->billingAddressId) ? request()->billingAddressId : (isset(request()->billing_address_id) ? request()->billing_address_id :(session('billing_address_id') ? session('billing_address_id') : (json_decode($data['additional_data']??json_encode(['billing_address_id'=>$address_id]), true)['billing_address_id'] ?? null)));
-        $coupon_code = $coupon_process['coupon_code'];
+        $billing_address_id = isset(request()->billingAddressId) ? request()->billingAddressId : (isset(request()->billing_address_id) ? request()->billing_address_id : (session('billing_address_id') ? session('billing_address_id') : (json_decode($data['additional_data'] ?? json_encode(['billing_address_id' => $address_id]), true)['billing_address_id'] ?? null)));
+        $coupon_code = $coupon_process['coupon_code'] ?? request()->coupon_code ?? session('coupon_code') ?? 0;
         $coupon_bearer = $coupon_process['coupon_bearer'];
-        $discount = $coupon_process['discount'];
+        $discount = $coupon_process['discount'] ?? request()->coupon_discount_amount ?? session('coupon_discount_amount') ?? 0;
         $discount_type = $coupon_process['discount'] == 0 ? null : 'coupon_discount';
         $order_note = $req['order_note'] ?? session('order_note');
 
