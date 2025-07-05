@@ -73,9 +73,9 @@
                     <td>{{ $item?->sub_sub_category->name ?? 'N/A'}}</td>
                     <td>{{ $item?->brand->name ?? 'N/A'}}</td>
                     <td>{{ $item?->product_type}}</td>
-                    <td>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item['unit_price']))}}</td>
-                    <td>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item['tax']))}}</td>
-                    <td>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item['discount']))}}</td>
+                    <td>{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item['unit_price']))!!}</td>
+                    <td>{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item['tax']))!!}</td>
+                    <td>{!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item['discount']))!!}</td>
                     <td>{{$item->discount_type}}</td>
                     <td>{{$item?->rating && count($item->rating) > 0 ?  number_format($item->rating[0]->average,2) : 'N/A'}}</td>
                     <td>

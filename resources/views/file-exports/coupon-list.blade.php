@@ -33,10 +33,10 @@
                     <td> {{translate($item['coupon_type'])}}</td>
                     <td> {{ $item['order_count'] }}	</td>
                     <td> {{ $item['limit']==0 ? 'N/A' : $item['limit'] }}	</td>
-                    <td> {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item['min_purchase'])) }}	</td>
-                    <td> {{ $item['discount_type'] == 'percentage' ? \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item['max_discount'])) : 'N/A'   }}	</td>
+                    <td> {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item['min_purchase'])) !!}	</td>
+                    <td> {!! $item['discount_type'] == 'percentage' ? \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item['max_discount'])) : 'N/A'   !!}	</td>
                     <td> {{ translate($item['discount_type']) }} </td>
-                    <td> {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item['discount']))  }}	</td>
+                    <td> {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item['discount']))  !!}	</td>
                     <td> {{translate($item['coupon_bearer'] == 'inhouse' ? 'admin' : $item['coupon_bearer'])}}	</td>
                     <td> {{date('d M, y',strtotime($item['start_date']))}}	</td>
                     <td> {{date('d M, y',strtotime($item['expire_date']))}}	</td>

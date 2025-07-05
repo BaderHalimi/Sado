@@ -40,12 +40,12 @@
                 <tr>
                     <td> {{++$key}}	</td>
                     <td> {{$item['id']}}	</td>
-                    <td>{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item->order_amount)) }}</td>
-                    <td>{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item->details_sum_discount)) }}</td>
-                    <td>{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item->discount_amount)) }}</td>
-                    <td>{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item->shipping_cost - ($item->extra_discount_type == 'free_shipping_over_order_amount' ? $item->extra_discount : 0))) }}</td>
-                    <td>{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item->details_sum_tax)) }}</td>
-                    <td>{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item->admin_commission)) }}</td>
+                    <td>{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item->order_amount)) !!}</td>
+                    <td>{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item->details_sum_discount)) !!}</td>
+                    <td>{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item->discount_amount)) !!}</td>
+                    <td>{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item->shipping_cost - ($item->extra_discount_type == 'free_shipping_over_order_amount' ? $item->extra_discount : 0))) !!}</td>
+                    <td>{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item->details_sum_tax)) !!}</td>
+                    <td>{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item->admin_commission)) !!}</td>
                     <td>{{translate($item['order_status'])}}</td>
             @endforeach
             <!-- end -->

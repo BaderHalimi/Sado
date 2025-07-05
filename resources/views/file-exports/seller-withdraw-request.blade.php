@@ -36,7 +36,7 @@
             @foreach ($data['withdraw_request'] as $key=>$item)
                 <tr>
                     <td> {{++$key}}	</td>
-                    <td> {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item['amount']))}} </td>
+                    <td> {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item['amount']))!!} </td>
                     <td>{{ ucwords(($item?->seller?->f_name ?? translate('not_found')) . ' ' . $item?->seller?->l_name) }}</td>
                     <td> {{ date_format( $item->created_at, 'd M ,Y, h:i:s A') }} </td>
                     <td> {{ucwords($item->approved==0 ? 'pending' : ($item->approved==1 ? 'approved' : 'denied'))}}</td>

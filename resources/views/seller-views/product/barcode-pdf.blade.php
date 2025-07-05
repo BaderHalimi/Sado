@@ -35,7 +35,7 @@
             class="text-capitalize text-bold">{{ \App\Model\BusinessSetting::where('type', 'company_name')->first()->value }}</span>
         <span class="product-name" style="display: block">{{ Str::limit($product->name, 30) }}</span>
         <span class="currency">
-            {{ $product['selling_price'] . ' ' . \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($product->unit_price)) }}</span>
+            {!! $product['selling_price'] . ' ' . \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($product->unit_price)) !!}</span>
         <br>
         <div class="bar-code" style="margin-left: 10px !important; font-weight:bold">{!! DNS1D::getBarcodeHTML($product->code, 'C128') !!}</div>
         <p class="">{{ translate('code') }} :

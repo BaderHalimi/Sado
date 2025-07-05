@@ -38,7 +38,7 @@
                     <td>{{ ucwords($item?->delivery_men?->f_name ?? translate('not_found')) }}</td>
                     <td>{{ ucwords($item?->delivery_men?->l_name ?? translate('not_found')) }}</td>
                     <td> {{ date_format( $item->created_at, 'd M ,Y, h:i:s A') }} </td>
-                    <td> {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item['amount']))}} </td>
+                    <td> {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item['amount']))!!} </td>
                     <td> {{ucwords($item->approved==0 ? 'pending' : ($item->approved==1 ? 'approved' : 'denied'))}}</td>
                 </tr>
             @endforeach

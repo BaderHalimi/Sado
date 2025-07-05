@@ -94,14 +94,14 @@
                     <img src="{{asset('/public/assets/back-end/img/products.svg')}}" alt="back-end/img">
                     <div class="info">
                         <h4 class="subtitle">
-                            {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($due_amount+$settled_amount)) }}
+                            {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($due_amount+$settled_amount)) !!}
                         </h4>
                         <h6 class="subtext">{{translate('total_Order_Amount')}}</h6>
                     </div>
                     <div class="coupon__discount w-100 text-right d-flex justify-content-between">
                         <div class="text-center">
                             <strong class="text-danger">
-                                {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($due_amount)) }}
+                                {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($due_amount)) !!}
                             </strong>
                             <div class="d-flex">
                                 <span>{{translate('due_Amount')}}</span>
@@ -112,7 +112,7 @@
                         </div>
                         <div class="text-center">
                             <strong class="text-success">
-                                {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($settled_amount)) }}
+                                {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($settled_amount)) !!}
                             </strong>
                             <div class="d-flex">
                                 <span>{{translate('already_Settled')}}</span>
@@ -213,16 +213,16 @@
                         </div>
                         <div class="apex-legends">
                             <div class="before-bg-004188">
-                                <span>{{translate('cash_Payments')}} ({{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($payment_data['cash_payment'])) }})</span>
+                                <span>{{translate('cash_Payments')}} ({!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($payment_data['cash_payment'])) !!})</span>
                             </div>
                             <div class="before-bg-0177CD">
-                                <span>{{translate('digital_Payments')}} ({{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($payment_data['digital_payment'])) }})</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span>{{translate('digital_Payments')}} ({!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($payment_data['digital_payment'])) !!})</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
                             <div class="before-bg-A2CEEE">
-                                <span>{{translate('wallet')}} ({{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($payment_data['wallet_payment'])) }})</span>
+                                <span>{{translate('wallet')}} ({!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($payment_data['wallet_payment'])) !!})</span>
                             </div>
                             <div class="before-bg-CDE6F5">
-                                <span>{{translate('offline_payments')}} ({{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($payment_data['offline_payment'])) }})</span>
+                                <span>{{translate('offline_payments')}} ({!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($payment_data['offline_payment'])) !!})</span>
                             </div>
                         </div>
                     </div>
@@ -296,12 +296,12 @@
                             <td>
                                 <a  class="title-color hover-c1" href="{{route('seller.orders.details',[$order->id])}}">{{$order->id}}</a>
                             </td>
-                            <td>{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->order_amount)) }}</td>
-                            <td>{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->details_sum_discount)) }}</td>
-                            <td>{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->discount_amount)) }}</td>
-                            <td>{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->shipping_cost - ($order->extra_discount_type == 'free_shipping_over_order_amount' ? $order->extra_discount : 0))) }}</td>
-                            <td>{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->details_sum_tax)) }}</td>
-                            <td>{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->admin_commission)) }}</td>
+                            <td>{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->order_amount)) !!}</td>
+                            <td>{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->details_sum_discount)) !!}</td>
+                            <td>{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->discount_amount)) !!}</td>
+                            <td>{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->shipping_cost - ($order->extra_discount_type == 'free_shipping_over_order_amount' ? $order->extra_discount : 0))) !!}</td>
+                            <td>{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->details_sum_tax)) !!}</td>
+                            <td>{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->admin_commission)) !!}</td>
                             <td>
                                 <div class="d-flex justify-content-center">
                                     @if($order['order_status']=='pending')

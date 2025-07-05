@@ -56,7 +56,7 @@
                 <div class="left-content-card">
                     <img src="{{asset('/public/assets/back-end/img/expense.svg')}}" alt="">
                     <div class="info">
-                        <h4 class="subtitle">{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_expense)) }}</h4>
+                        <h4 class="subtitle">{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_expense)) !!}</h4>
                         <h6 class="subtext">
                             <span>{{translate('total_Expense')}}</span>
                             <span class="ml-2" data-toggle="tooltip" data-placement="top" title="{{translate('free_delivery')}}, {{translate('coupon_discount_will_be_shown_here')}}">
@@ -68,14 +68,14 @@
                 <div class="left-content-card">
                     <img src="{{asset('/public/assets/back-end/img/free-delivery.svg')}}" alt="">
                     <div class="info">
-                        <h4 class="subtitle">{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($free_delivery)) }}</h4>
+                        <h4 class="subtitle">{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($free_delivery)) !!}</h4>
                         <h6 class="subtext">{{translate('free_Delivery')}}</h6>
                     </div>
                 </div>
                 <div class="left-content-card">
                     <img src="{{asset('/public/assets/back-end/img/coupon-discount.svg')}}" alt="">
                     <div class="info">
-                        <h4 class="subtitle">{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($coupon_discount)) }}</h4>
+                        <h4 class="subtitle">{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($coupon_discount)) !!}</h4>
                         <h6 class="subtext">
                             <span>{{translate('coupon_Discount')}}</span>
                             <span class="ml-2" data-toggle="tooltip" data-placement="top" title="{{translate('discount_on_purchase_and_first_delivery_coupon_amount_will_be_shown_here')}}">
@@ -227,7 +227,7 @@
                                         {{$transaction->id}}
                                     </a>
                                 </td>
-                                <td>{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency(($transaction->coupon_discount_bearer == 'seller'?$transaction->discount_amount:0) + ($transaction->free_delivery_bearer=='seller'?$transaction->extra_discount:0))) }}</td>
+                                <td>{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency(($transaction->coupon_discount_bearer == 'seller'?$transaction->discount_amount:0) + ($transaction->free_delivery_bearer=='seller'?$transaction->extra_discount:0))) !!}</td>
                                 <td>
                                     {{ $transaction->coupon_discount_bearer == 'seller'?(isset($transaction->coupon->coupon_type) ? ($transaction->coupon->coupon_type == 'free_delivery' ? 'Free Delivery Coupon':ucwords(str_replace('_', ' ', $transaction->coupon->coupon_type))) : ''):'' }}
                                     <br>

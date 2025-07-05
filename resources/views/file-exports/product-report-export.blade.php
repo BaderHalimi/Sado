@@ -39,14 +39,14 @@
                 <tr>
                     <td> {{++$key}}	</td>
                     <td> {{$item['name']}}	</td>
-                    <td>{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item->unit_price)) }}</td>
-                    <td>{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency(isset($item->order_details[0]->total_sold_amount) ? $item->order_details[0]->total_sold_amount : 0)) }}</td>
+                    <td>{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item->unit_price)) !!}</td>
+                    <td>{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency(isset($item->order_details[0]->total_sold_amount) ? $item->order_details[0]->total_sold_amount : 0)) !!}</td>
                     <td>{{ isset($item->order_details[0]->product_quantity) ? $item->order_details[0]->product_quantity : 0 }}</td>
                     <td>
-                        {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency(
+                        {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency(
                             (isset($item->order_details[0]->total_sold_amount) ? $item->order_details[0]->total_sold_amount : 0) /
                             (isset($item->order_details[0]->product_quantity) ? $item->order_details[0]->product_quantity : 1)))
-                        }}
+                        !!}
                     </td>
                     <td>
                         {{ $item->product_type == 'digital' ? ($item->status==1 ? translate('available') : translate('not_available')) : $item->current_stock }}

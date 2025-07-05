@@ -71,9 +71,9 @@
                     <td> {{ucwords($order->is_guest == 0 ? (($order?->customer?->f_name ?? translate('not_found')) .' '. $order?->customer?->l_name) : translate('guest_customer'))}}	</td>
                     <td> {{ucwords($order?->seller_is == 'seller' ? ($order?->seller?->shop->name ?? translate('not_found')) : translate('inhouse'))}}	</td>
                     <td> {{$order->total_qty}} </td>
-                    <td> {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->total_price))}} </td>
-                    <td> {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->total_discount))}} </td>
-                    <td> {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->discount_amount))}}</td>
+                    <td> {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->total_price))!!} </td>
+                    <td> {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->total_discount))!!} </td>
+                    <td> {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->discount_amount))!!}</td>
                     @php
                         if ($order->extra_discount_type == 'percent') {
                             $extra_discount = $order->total_price*$order->extra_discount /100;
@@ -81,11 +81,11 @@
                             $extra_discount = $order->extra_discount;
                         }
                     @endphp
-                    <td> {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($extra_discount))}}</td>
-                    <td> {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->total_price-$order->total_discount- $order->discount_amount -($order->is_shipping_free == 0 ? $extra_discount : 0)))}}  </td>
-                    <td> {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->total_tax))}}	</td>
-                    <td> {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->is_shipping_free == 0 ? $order->shipping_cost : 0))}}	</td>
-                    <td> {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->order_amount + ($order->is_shipping_free == 1 ? $extra_discount : 0)))}}</td>
+                    <td> {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($extra_discount))!!}</td>
+                    <td> {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->total_price-$order->total_discount- $order->discount_amount -($order->is_shipping_free == 0 ? $extra_discount : 0)))!!}  </td>
+                    <td> {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->total_tax))!!}	</td>
+                    <td> {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->is_shipping_free == 0 ? $order->shipping_cost : 0))!!}	</td>
+                    <td> {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->order_amount + ($order->is_shipping_free == 1 ? $extra_discount : 0)))!!}</td>
                     <td> {{translate($order->payment_status)}}</td>
                     @if($data['status'] == 'all')
                         <td> {{translate($order->order_status)}}</td>

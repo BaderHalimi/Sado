@@ -35,7 +35,7 @@
                                 <div class="d-flex flex-wrap gap-2 mt-3 title-color" id="chosen_price_div">
                                     <div class="product-description-label">{{translate('total_Cash_In_Hand')}}: </div>
                                     <div class="product-price">
-                                        <strong>{{ $delivery_man->wallet ? \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($delivery_man->wallet->cash_in_hand)) : 0  }}</strong>
+                                        <strong>{!! $delivery_man->wallet ? \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($delivery_man->wallet->cash_in_hand)) : 0  !!}</strong>
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@
                                         {{ $delivery_man->f_name. ' ' .$delivery_man->l_name  }}
                                     </td>
                                     <td>
-                                        {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($transaction->credit)) }}
+                                        {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($transaction->credit)) !!}
                                     </td>
                                     <td>
                                         {{ date_format( $transaction->created_at, 'd-M-Y, h:i:s A') }}

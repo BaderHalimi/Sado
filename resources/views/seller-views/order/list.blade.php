@@ -211,7 +211,7 @@
                                             @php($free_shipping = $order->shipping_cost)
                                         @endif
 
-                                        {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->order_amount+$discount+$free_shipping))}}
+                                        {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->order_amount+$discount+$free_shipping))!!}
                                     </div>
 
                                     @if($order->payment_status=='paid')

@@ -373,49 +373,49 @@
                             <td class="text-center">1</td>
                             <td>{{translate('total_Product_Amount')}}</td>
                             <td class="text-right">
-                                {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($transaction->order_details_sum_price * $transaction->order_details_sum_qty)) }}
+                                {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($transaction->order_details_sum_price * $transaction->order_details_sum_qty)) !!}
                             </td>
                         </tr>
                         <tr>
                             <td class="text-center">2</td>
                             <td>{{translate('product_Discount')}}</td>
                             <td class="text-right">
-                                {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($transaction->order_details_sum_discount))}}
+                                {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($transaction->order_details_sum_discount))!!}
                             </td>
                         </tr>
                         <tr>
                             <td class="text-center">3</td>
                             <td>{{translate('coupon_Discount')}}</td>
                             <td class="text-right">
-                                {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($transaction->order->discount_amount)) }}
+                                {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($transaction->order->discount_amount)) !!}
                             </td>
                         </tr>
                         <tr>
                             <td class="text-center">4</td>
                             <td>{{translate('discounted_Amount')}}</td>
                             <td class="text-right">
-                                {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency(($transaction->order_details_sum_price * $transaction->order_details_sum_qty) - $transaction->order_details_sum_discount - (isset($transaction->order->coupon) && $transaction->order->coupon->coupon_type != 'free_delivery'?$transaction->order->discount_amount:0)))}}
+                                {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency(($transaction->order_details_sum_price * $transaction->order_details_sum_qty) - $transaction->order_details_sum_discount - (isset($transaction->order->coupon) && $transaction->order->coupon->coupon_type != 'free_delivery'?$transaction->order->discount_amount:0)))!!}
                             </td>
                         </tr>
                         <tr>
                             <td class="text-center">5</td>
                             <td>{{translate('VAT/TAX')}}</td>
                             <td class="text-right">
-                                {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($transaction['tax']))}}
+                                {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($transaction['tax']))!!}
                             </td>
                         </tr>
                         <tr>
                             <td class="text-center">6</td>
                             <td>{{translate('shipping_Charge')}}</td>
                             <td class="text-right">
-                                {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($transaction->order->shipping_cost))}}
+                                {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($transaction->order->shipping_cost))!!}
                             </td>
                         </tr>
                         <tr>
                             <td class="text-center">7</td>
                             <td>{{translate('order_Amount')}}</td>
                             <td class="text-right">
-                                {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($transaction->order->order_amount))}}
+                                {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($transaction->order->order_amount))!!}
                             </td>
                         </tr>
                     </tbody>
@@ -437,7 +437,7 @@
                 <td class="text-right">
                     @php($admin_coupon_discount = ($transaction->order->coupon_discount_bearer == 'inhouse' && $transaction->order->discount_type == 'coupon_discount') ? $transaction->order->discount_amount : 0)
                     @php($admin_shipping_discount = ($transaction->order->free_delivery_bearer=='admin' && $transaction->order->is_shipping_free) ? $transaction->order->extra_discount : 0)
-                    {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($admin_coupon_discount+$admin_shipping_discount)) }}
+                    {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($admin_coupon_discount+$admin_shipping_discount))!!}}
                 </td>
             </tr>
             <tr>
@@ -447,7 +447,7 @@
                 <td class="text-right">
                     @php($seller_coupon_discount = ($transaction->order->coupon_discount_bearer == 'seller' && $transaction->order->discount_type == 'coupon_discount') ? $transaction->order->discount_amount : 0)
                     @php($seller_shipping_discount = ($transaction->order->free_delivery_bearer=='seller' && $transaction->order->is_shipping_free) ? $transaction->order->extra_discount : 0)
-                    {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($seller_coupon_discount+$seller_shipping_discount)) }}
+                    {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($seller_coupon_discount+$seller_shipping_discount)) !!}
                 </td>
             </tr>
             <tr>
@@ -455,7 +455,7 @@
                     {{ translate('admin_Commission') }}
                 </td>
                 <td class="text-right">
-                    {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($transaction['admin_commission']))}}
+                    {!!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($transaction['admin_commission']))!!}
                 </td>
             </tr>
             <tr>
@@ -486,7 +486,7 @@
                             }
                         }
                     ?>
-                    {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($seller_net_income-$seller_shipping_discount)) }}
+                    {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($seller_net_income-$seller_shipping_discount)) !!}
                 </td>
             </tr>
         </tbody>

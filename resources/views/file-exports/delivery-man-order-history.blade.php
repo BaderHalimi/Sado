@@ -22,11 +22,11 @@
                 @if ($data['type'] == 'earn')
                     <th>{{translate('earning_Analytics')}}-</th>
                     <th></th>
-                    <th> {{translate('total_Earning')}} - {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_earn'])) }} </th>
+                    <th> {{translate('total_Earning')}} - {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['total_earn'])) !!} </th>
                     <th></th>
-                    <th> {{translate('withdrawable_Balance')}} - {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['withdrawable_balance'])) }}</th>
+                    <th> {{translate('withdrawable_Balance')}} - {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['withdrawable_balance'])) !!}</th>
                     <th></th>
-                    <th> {{translate('already_Withdrawn')}} - {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['delivery_man']?->wallet?->total_withdraw)) }}</th>
+                    <th> {{translate('already_Withdrawn')}} - {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($data['delivery_man']?->wallet?->total_withdraw)) !!}</th>
 
                 @else
                     <th>{{translate('search_Criteria')}}-</th>
@@ -53,7 +53,7 @@
                     <td> {{ date_format( $item->created_at, 'd M ,Y, h:i:s A') }} </td>
                     <td> {{$item->total_qty}} </td>
                     @if ($data['type'] == 'earn')
-                        <td> {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item->deliveryman_charge)) }}</td>
+                        <td> {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($item->deliveryman_charge)) !!}</td>
                     @endif
                     <td> {{translate($item->payment_status)}} </td>
                     <td> {{translate($item->order_status)}}</td>

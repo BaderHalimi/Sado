@@ -47,7 +47,7 @@
                         <div class="card h-100 d-flex justify-content-center align-items-center">
                             <div class="card-body d-flex flex-column gap-10 align-items-center justify-content-center">
                                 <img width="48" src="http://localhost/6valley/public/assets/back-end/img/cc.png" alt="">
-                                <h3 class="for-card-count mb-0 fz-24">{{ $delivery_man->wallet ? \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($delivery_man->wallet->cash_in_hand)) : \App\CPU\BackEndHelper::set_symbol(0) }}</h3>
+                                <h3 class="for-card-count mb-0 fz-24">{!! $delivery_man->wallet ? \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($delivery_man->wallet->cash_in_hand)) : \App\CPU\BackEndHelper::set_symbol(0) !!}</h3>
                                 <div class="font-weight-bold text-capitalize mb-30">
                                     {{translate('cash_in_hand')}}
                                 </div>
@@ -62,7 +62,7 @@
                                 <div class="card card-body h-100 justify-content-center py-5">
                                     <div class="d-flex gap-2 justify-content-between align-items-center">
                                         <div class="d-flex flex-column align-items-start">
-                                            <h3 class="mb-1 fz-24">{{ $delivery_man->wallet ? \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($delivery_man->wallet->current_balance)) : \App\CPU\BackEndHelper::set_symbol(0)}}</h3>
+                                            <h3 class="mb-1 fz-24">{!! $delivery_man->wallet ? \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($delivery_man->wallet->current_balance)) : \App\CPU\BackEndHelper::set_symbol(0)!!}</h3>
                                             <div class="text-capitalize mb-0">{{translate('current_balance')}}</div>
                                         </div>
                                         <div>
@@ -75,7 +75,7 @@
                                 <div class="card card-body h-100 justify-content-center py-5">
                                     <div class="d-flex gap-2 justify-content-between align-items-center">
                                         <div class="d-flex flex-column align-items-start">
-                                            <h3 class="mb-1 fz-24">{{ $delivery_man->wallet ? \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($delivery_man->wallet->total_withdraw)) : \App\CPU\BackEndHelper::set_symbol(0)}}</h3>
+                                            <h3 class="mb-1 fz-24">{!! $delivery_man->wallet ? \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($delivery_man->wallet->total_withdraw)) : \App\CPU\BackEndHelper::set_symbol(0)!!}</h3>
                                             <div class="text-capitalize mb-0">{{translate('total_withdrawn')}}</div>
                                         </div>
                                         <div>
@@ -88,7 +88,7 @@
                                 <div class="card card-body h-100 justify-content-center py-5">
                                     <div class="d-flex gap-2 justify-content-between align-items-center">
                                         <div class="d-flex flex-column align-items-start">
-                                            <h3 class="mb-1 fz-24">{{$delivery_man->wallet ? \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($delivery_man->wallet->pending_withdraw)) : \App\CPU\BackEndHelper::set_symbol(0)}}</h3>
+                                            <h3 class="mb-1 fz-24">{!! delivery_man->wallet ? \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($delivery_man->wallet->pending_withdraw)) : \App\CPU\BackEndHelper::set_symbol(0)!!}</h3>
                                             <div class="text-capitalize mb-0">{{translate('pending_withdraw')}}</div>
                                         </div>
                                         <div>
@@ -102,7 +102,7 @@
                                     <div class="d-flex gap-2 justify-content-between align-items-center">
                                         <div class="d-flex flex-column align-items-start">
                                             <h3 class="mb-1 fz-24">
-                                                {{ $withdrawbale_balance <= 0 ? \App\CPU\BackEndHelper::set_symbol(0) : \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($withdrawbale_balance)) }}
+                                                {!! $withdrawbale_balance <= 0 ? \App\CPU\BackEndHelper::set_symbol(0) : \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($withdrawbale_balance)) !!}
                                             </h3>
                                             <div class="text-capitalize mb-0">{{translate('withdrawable_balance')}}</div>
                                         </div>
@@ -203,7 +203,7 @@
                         <div class="d-flex flex-wrap gap-2 mt-3 title-color" id="chosen_price_div">
                             <div class="product-description-label">{{translate('total_Cash_In_Hand')}}: </div>
                             <div class="product-price">
-                                <strong>{{ $delivery_man->wallet ? \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($delivery_man->wallet->cash_in_hand)) : 0  }}</strong>
+                                <strong>{!! $delivery_man->wallet ? \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($delivery_man->wallet->cash_in_hand)) : 0  !!}</strong>
                             </div>
                         </div>
                     </div>

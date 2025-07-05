@@ -331,7 +331,7 @@
                             <td class="text-center">1</td>
                             <td>{{translate('expense_Amount')}}</td>
                             <td class="text-right">
-                                {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency(($transaction->coupon_discount_bearer == 'seller'?$transaction->discount_amount:0) + ($transaction->free_delivery_bearer=='seller'?$transaction->extra_discount:0))) }}
+                                {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency(($transaction->coupon_discount_bearer == 'seller'?$transaction->discount_amount:0) + ($transaction->free_delivery_bearer=='seller'?$transaction->extra_discount:0))) !!}
                             </td>
                         </tr>
                     </tbody>

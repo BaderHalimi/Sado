@@ -75,10 +75,10 @@
                                     <td>{{ ucfirst($p['user_email']) }}</td>
 
                                     <td>
-                                        {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($p['unit_price']))}}
+                                        {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($p['unit_price']))!!}
                                     </td>
                                     <td>
-                                        {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($p['purchase_price']))}}
+                                        {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($p['purchase_price']))!!}
 
                                         <!-- @if($p->request_status == 0)
                                             <label class="badge badge-soft-warning">{{translate('new_Request')}}</label>

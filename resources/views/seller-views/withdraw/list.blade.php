@@ -50,7 +50,7 @@
                                 @foreach($withdraw_requests as $key=>$withdraw_request)
                                     <tr>
                                         <td>{{$withdraw_requests->firstitem()+$key}}</td>
-                                        <td>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($withdraw_request['amount']))}}</td>
+                                        <td>{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($withdraw_request['amount'])) !!}</td>
                                         <td>{{date("F jS, Y", strtotime($withdraw_request->created_at))}}</td>
                                         <td>
                                             @if($withdraw_request->approved==0)

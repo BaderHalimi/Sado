@@ -95,7 +95,7 @@
                     <img src="{{asset('/public/assets/back-end/img/discount.svg')}}" alt="">
                     <div class="info">
                         <h4 class="subtitle">
-                            {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_discount_given)) }}
+                            {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_discount_given)) !!}
                         </h4>
                         <h6 class="subtext">
                             {{translate('total_Discount_Given')}}
@@ -253,16 +253,16 @@
                                     {{ \Illuminate\Support\Str::limit($product->name, 20) }}
                                     </a>
                                 </td>
-                                <td>{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($product->unit_price)) }}</td>
-                                <td>{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency(isset($product->order_details[0]->total_sold_amount) ? $product->order_details[0]->total_sold_amount : 0)) }}</td>
+                                <td>{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($product->unit_price)) !!}</td>
+                                <td>{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency(isset($product->order_details[0]->total_sold_amount) ? $product->order_details[0]->total_sold_amount : 0)) !!}</td>
                                 <td>
                                     {{ isset($product->order_details[0]->product_quantity) ? $product->order_details[0]->product_quantity : 0 }}
                                 </td>
                                 <td>
-                                    {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency(
+                                    {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency(
                                         (isset($product->order_details[0]->total_sold_amount) ? $product->order_details[0]->total_sold_amount : 0) /
                                         (isset($product->order_details[0]->product_quantity) ? $product->order_details[0]->product_quantity : 1)))
-                                    }}
+                                    !!}
                                 </td>
                                 <td>
                                     {{ $product->product_type == 'digital' ? ($product->status==1 ? translate('available') : translate('not_available')) : $product->current_stock }}

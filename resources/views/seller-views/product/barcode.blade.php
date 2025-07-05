@@ -84,7 +84,7 @@
                             class="barcode_site text-capitalize">{{ \App\Model\BusinessSetting::where('type', 'company_name')->first()->value }}</span>
                         <span class="barcode_name text-capitalize">{{ Str::limit($product->name, 20) }}</span>
                         <div class="barcode_price text-capitalize">
-                            {{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($product->unit_price)) }}
+                            {!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($product->unit_price)) !!}
                         </div>
 
                         @if ($product->code !== null)

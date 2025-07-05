@@ -34,7 +34,7 @@
                         <!-- Total Earning Card -->
                         <div class="business-analytics">
                             <h5 class="business-analytics__subtitle">{{ translate('total_earning') }}</h5>
-                            <h2 class="business-analytics__title">{{ $total_earn ? \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_earn)) : \App\CPU\BackEndHelper::set_symbol(0) }}</h2>
+                            <h2 class="business-analytics__title">{!!  $total_earn ? \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_earn)) : \App\CPU\BackEndHelper::set_symbol(0) !!}</h2>
                             <img src="{{ asset('public/assets/back-end/img/aw.png') }}" width="40" class="business-analytics__img" alt="">
                         </div>
                         <!-- End Total Earning Card -->
@@ -43,7 +43,7 @@
                         <!-- Withdrawable balance Card -->
                         <div class="business-analytics">
                             <h5 class="business-analytics__subtitle">{{ translate('withdrawable_balance') }}</h5>
-                            <h2 class="business-analytics__title">{{ $withdrawable_balance? \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($withdrawable_balance)) : \App\CPU\BackEndHelper::set_symbol(0) }}</h2>
+                            <h2 class="business-analytics__title">{!! $withdrawable_balance? \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($withdrawable_balance)) : \App\CPU\BackEndHelper::set_symbol(0) !!}</h2>
                             <img src="{{ asset('public/assets/back-end/img/pw.png') }}" width="40" class="business-analytics__img" alt="">
                         </div>
                         <!-- End Withdrawable balance Card -->
@@ -52,7 +52,7 @@
                         <!-- Business Analytics Card -->
                         <div class="business-analytics">
                             <h5 class="business-analytics__subtitle">{{ translate('withdrawn') }}</h5>
-                            <h2 class="business-analytics__title">{{ $delivery_man->wallet? \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($delivery_man->wallet->total_withdraw)) : \App\CPU\BackEndHelper::set_symbol(0) }}</h2>
+                            <h2 class="business-analytics__title">{!! $delivery_man->wallet? \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($delivery_man->wallet->total_withdraw)) : \App\CPU\BackEndHelper::set_symbol(0) !!}</h2>
                             <img src="{{ asset('public/assets/back-end/img/withdraw.png') }}" width="40" class="business-analytics__img" alt="">
                         </div>
                         <!-- End Business Analytics Card -->
@@ -122,7 +122,7 @@
                                             </td>
                                             <td>
                                                 <div class="d-flex flex-column gap-1">
-                                                    <div class="media-body">{{ \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->deliveryman_charge)) }}</div>
+                                                    <div class="media-body">{!! \App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->deliveryman_charge)) !!}</div>
 
                                                 </div>
                                             </td>

@@ -371,9 +371,9 @@
                         {{ucwords('variation')}} : {{$details['variant']}}
                         @endif
                     </td>
-                    <td>{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($details['price']))}}</td>
+                    <td>{!! ! !!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($details['price']))!!}</td>
                     <td>{{$details->qty}}</td>
-                    <td class="text-right">{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($subtotal))}}</td>
+                    <td class="text-right">{!! ! !!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($subtotal))!!}</td>
                 </tr>
 
                 @php
@@ -442,39 +442,39 @@
                     <tbody>
                         <tr>
                             <td class="p-1 text-left">{{ucwords('sub total')}}</td>
-                            <td class="p-1">{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($sub_total))}}</td>
+                            <td class="p-1">{!! ! !!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($sub_total))!!}</td>
                         </tr>
                         <tr>
                             <td class="p-1 text-left">{{ucwords('tax')}}</td>
-                            <td class="p-1">{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_tax))}}</td>
+                            <td class="p-1">{!! ! !!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_tax))!!}</td>
                         </tr>
                         @if ($order->order_type=='default_type')
                             <tr>
                                 <td class="p-1 text-left">{{ucwords('shipping')}}</td>
-                                <td class="p-1">{{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($shipping - ($order['is_shipping_free'] ? $order['extra_discount'] : 0)))}}</td>
+                                <td class="p-1">{!! ! !!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($shipping - ($order['is_shipping_free'] ? $order['extra_discount'] : 0)))!!}</td>
                             </tr>
                         @endif
                         <tr>
                             <td class="p-1 text-left">{{ucwords('coupon discount')}}</td>
                             <td class="p-1">
-                                - {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->discount_amount))}} </td>
+                                - {!! ! !!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->discount_amount))!!} </td>
                         </tr>
                         @if ($order->order_type=='POS')
                             <tr>
                                 <td class="p-1 text-left">{{ucwords('extra discount')}}</td>
                                 <td class="p-1">
-                                    - {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($ext_discount))}} </td>
+                                    - {!! ! !!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($ext_discount))!!} </td>
                             </tr>
                         @endif
                         <tr>
                             <td class="p-1 text-left">{{ucwords('discount on product')}}</td>
                             <td class="p-1">
-                                - {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_discount_on_product))}} </td>
+                                - {!! ! !!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($total_discount_on_product))!!} </td>
                         </tr>
                         <tr>
                             <td class="border-dashed-top font-weight-bold text-left"><b>{{ucwords('total')}}</b></td>
                             <td class="border-dashed-top font-weight-bold">
-                                {{\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->order_amount))}}
+                                {!! ! !!\App\CPU\BackEndHelper::set_symbol(\App\CPU\BackEndHelper::usd_to_currency($order->order_amount))!!}
                             </td>
                         </tr>
                     </tbody>
