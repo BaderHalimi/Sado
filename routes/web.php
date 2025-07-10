@@ -34,7 +34,7 @@ use Modules\Gateways\Http\Controllers\PayFastController;
 Route::get('maintenance-mode', 'Web\WebController@maintenance_mode')->name('maintenance-mode');
 
 
-Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestCheck']], function () {
+Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestCheck','localization']], function () {
     Route::get('/', 'HomeController@index')->name('home');
 
     Route::get('quick-view', 'WebController@quick_view')->name('quick-view');
@@ -277,7 +277,7 @@ if (!$is_published) {
 
             // (اختياري) صفحة للـ checkout ببوابة ماي فاتورة المدمجة
             Route::get('/checkout', [MyFatoorahController::class, 'checkout'])->name('checkout');
-            
+
             // (اختياري) ويب هوك في حال بدك تتعامل مع اشعارات ماي فاتورة
             // Route::post('/webhook', [MyFatoorahController::class, 'webhook'])->name('webhook');
             // Route::post('/success/{payment_id}', [MyFatoorahController::class, 'success'])->name('success');

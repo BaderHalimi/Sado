@@ -87,6 +87,7 @@ class Kernel extends HttpKernel
         'seller_api_auth' => SellerApiAuthMiddleware::class,
         'guestCheck' => GuestMiddleware::class,
         'apiGuestCheck' => APIGuestMiddleware::class,
+        'localization'=>\App\Http\Middleware\Localization::class
     ];
 
     /**

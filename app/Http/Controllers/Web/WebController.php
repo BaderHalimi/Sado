@@ -66,6 +66,7 @@ use App\Model\RoomDesign;
 use App\Model\UserRoom;
 use Illuminate\Support\Facades\File;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\App;
 
 class WebController extends Controller
 {
@@ -513,7 +514,6 @@ class WebController extends Controller
         });
 
         $order_by = $request->order_by;
-
         return view(VIEW_FILE_NAMES['all_stores_page'], compact('sellers','order_by'));
     }
 
