@@ -587,7 +587,7 @@
                 @foreach ($categories as $cat)
                 <li class="nav-item dropdown {{ request()->is('/') ? 'active' : '' }}">
                     <a class="nav-link text-primary"
-                        href="{{ route('products', ['id' => $cat->id, 'data_from' => 'category', 'page' => 1]) }}">{{ translate($cat->name) }}</a>
+                        href="{{ route('products', ['id' => $cat->id, 'data_from' => 'category', 'page' => 1]) }}">{{ $cat->name }}</a>
                     @if ($cat->childes->count() > 0)
                     <div class="dropdown-menu __dropdown-menu-3 __min-w-165px">
                         @foreach ($cat->childes as $sub_category)

@@ -3,7 +3,7 @@
 </button>
 <div class="coupon__details">
     <div class="coupon__details-left">
-        <div class="text-center">
+        <div class="" style="margin-right: 100px;">
             <h6 class="title" id="title">{{ $coupon->title }}</h6>
             <h6 class="subtitle">{{translate('code')}} : <span id="coupon_code">{{ $coupon->code }}</span></h6>
             <div class="text-capitalize">
@@ -36,7 +36,7 @@
         </div>
     </div>
     <div class="coupon__details-right">
-        <div class="coupon">
+        <div class="coupon" style="max-width: 90px; width: 90px; overflow: hidden;top:70px;right: 30px;">
             @if($coupon->coupon_type == 'free_delivery')
                 <img src="{{ asset('public/assets/back-end/img/free-delivery.png') }}" alt="Free delivery" width="100">
             @else
@@ -46,7 +46,7 @@
                     </h4>
                 </div>
 
-                <span>{{translate('off')}}</span>
+                <span>{{translate('Off')}}</span>
             @endif
         </div>
     </div>
