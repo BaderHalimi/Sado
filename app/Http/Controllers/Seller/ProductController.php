@@ -1073,6 +1073,78 @@ class ProductController extends Controller
         $col_key = ['name', 'category_id', 'sub_category_id', 'sub_sub_category_id', 'brand_id', 'unit', 'minimum_order_qty', 'refundable', 'youtube_video_url', 'unit_price', 'purchase_price', 'tax', 'discount', 'discount_type', 'current_stock', 'details', 'thumbnail', 'images'];
         $skip = ['youtube_video_url', 'details', 'thumbnail', 'images', 'sub_category_id', 'sub_sub_category_id'];
         foreach ($collections as $collection) {
+            if (isset($collection['الاسم'])) {
+                $collection['name'] = $collection['الاسم'];
+                unset($collection['الاسم']);
+            }
+            if (isset($collection['الفئة'])) {
+                $collection['category_id'] = $collection['الفئة'];
+                unset($collection['الفئة']);
+            }
+            if (isset($collection['الفئة الفرعية'])) {
+                $collection['sub_category_id'] = $collection['الفئة الفرعية'];
+                unset($collection['الفئة الفرعية']);
+            }
+            if (isset($collection['الفئة الفرعية الفرعية'])) {
+                $collection['sub_sub_category_id'] = $collection['الفئة الفرعية الفرعية'];
+                unset($collection['الفئة الفرعية الفرعية']);
+            }
+            if (isset($collection['رقم البراند'])) {
+                $collection['brand_id'] = $collection['رقم البراند'];
+                unset($collection['رقم البراند']);
+            }
+            if (isset($collection['الوحدة'])) {
+                $collection['unit'] = $collection['الوحدة'];
+                unset($collection['الوحدة']);
+            }
+            if (isset($collection['الحد الأدنى للطلب'])) {
+                $collection['minimum_order_qty'] = $collection['الحد الأدنى للطلب'];
+                unset($collection['الحد الأدنى للطلب']);
+            }
+            if (isset($collection['قابل للإرجاع'])) {
+                $collection['refundable'] = $collection['قابل للإرجاع'];
+                unset($collection['قابل للإرجاع']);
+            }
+            if (isset($collection['رابط فيديو يوتيوب'])) {
+                $collection['youtube_video_url'] = $collection['رابط فيديو يوتيوب'];
+                unset($collection['رابط فيديو يوتيوب']);
+            }
+            if (isset($collection['سعر الوحدة'])) {
+                $collection['unit_price'] = $collection['سعر الوحدة'];
+                unset($collection['سعر الوحدة']);
+            }
+            if (isset($collection['سعر الشراء'])) {
+                $collection['purchase_price'] = $collection['سعر الشراء'];
+                unset($collection['سعر الشراء']);
+            }
+            if (isset($collection['الضريبة'])) {
+                $collection['tax'] = $collection['الضريبة'];
+                unset($collection['الضريبة']);
+            }
+            if (isset($collection['الخصم'])) {
+                $collection['discount'] = $collection['الخصم'];
+                unset($collection['الخصم']);
+            }
+            if (isset($collection['نوع الخصم'])) {
+                $collection['discount_type'] = $collection['نوع الخصم'];
+                unset($collection['نوع الخصم']);
+            }
+            if (isset($collection['الكمية في المخزون'])) {
+                $collection['current_stock'] = $collection['الكمية في المخزون'];
+                unset($collection['الكمية في المخزون']);
+            }
+            if (isset($collection['التفاصيل'])) {
+                $collection['details'] = $collection['التفاصيل'];
+                unset($collection['التفاصيل']);
+            }
+            if (isset($collection['الصورة المصغرة'])) {
+                $collection['thumbnail'] = $collection['الصورة المصغرة'];
+                unset($collection['الصورة المصغرة']);
+            }
+            if (isset($collection['الصور'])) {
+                $collection['images'] = $collection['الصور'];
+                unset($collection['الصور']);
+            }
             foreach ($collection as $key => $value) {
                 if ($key != "" && !in_array($key, $col_key)) {
                     Toastr::error(translate('Please_upload_the_correct_format_file'));

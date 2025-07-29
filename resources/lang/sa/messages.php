@@ -7135,4 +7135,6 @@ Payment',
   'The_minimum_purchase_amount_must_be_greater_than_discount_amount' => 'The minimum purchase amount must be greater than discount amount',
   'offer' => 'Offer',
   'Off' => 'Off',
+  'jsj' => 'Jsj',
+  'Please_upload_the_correct_format_file' => 'Please upload the correct format file',
 );
