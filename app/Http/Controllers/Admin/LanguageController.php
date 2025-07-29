@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\BusinessSetting;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use RecursiveDirectoryIterator;
@@ -202,8 +203,8 @@ class LanguageController extends Controller
             ksort($lang_data);
             foreach ($lang_data as $key => $value) {
                 $data[] = [
-                    'key'=>$key,
-                    'value'=>$value
+                    'key' => $key,
+                    'value' => $value
                 ];
             };
         }
@@ -228,6 +229,8 @@ class LanguageController extends Controller
         $data_filtered[$request['key']] = $request['value'];
         $str = "<?php return " . var_export($data_filtered, true) . ";";
         file_put_contents(base_path('resources/lang/' . $lang . '/messages.php'), $str);
+        Artisan::call('optimize:clear');
+        return response()->json(['status' => 'success', 'message' => 'تم تحديث الترجمة.']);
     }
 
     public function auto_translate(Request $request, $lang): \Illuminate\Http\JsonResponse

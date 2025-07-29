@@ -109,7 +109,7 @@
                             </div>
                             <!-- End Form Group -->
                             <div class="form-group d-flex flex-wrap justify-content-between mb-0">
-                                <a class="font-size-sm text-primary text-underline fw-bold" href="{{route('customer.auth.recover-password')}}">
+                                <a class="font-size-sm text-primary text-underline fw-bold" href="{{route('seller.auth.forgot-password')}}">
                                     {{ translate('forgot_password') }}؟
                                 </a>
                                 <!-- Checkbox -->

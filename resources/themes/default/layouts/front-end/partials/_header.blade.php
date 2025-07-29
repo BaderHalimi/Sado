@@ -585,20 +585,47 @@
             @php($categories=\App\Model\Category::with(['childes.childes'])->where('position', 0)->priority()->paginate(11))
             <ul class="navbar-nav" dir="{{ Session::get('direction') }}" style="{{Session::get('direction') == "rtl" ? 'padding-right: 0px' : ''}}">
                 @foreach ($categories as $cat)
+                <?php
+
+                $currentLang = app()->getLocale(); // أو أي تحقق من اللغة
+                $isArabic = preg_match('/\p{Arabic}/u', $cat->name);
+
+                if ($currentLang === 'sa' && !$isArabic) {
+                    $cat->name = translate($cat->name);
+                }
+                ?>
                 <li class="nav-item dropdown {{ request()->is('/') ? 'active' : '' }}">
                     <a class="nav-link text-primary"
                         href="{{ route('products', ['id' => $cat->id, 'data_from' => 'category', 'page' => 1]) }}">{{ $cat->name }}</a>
                     @if ($cat->childes->count() > 0)
                     <div class="dropdown-menu __dropdown-menu-3 __min-w-165px">
                         @foreach ($cat->childes as $sub_category)
+                        <?php
+
+                        $currentLang = app()->getLocale(); // أو أي تحقق من اللغة
+                        $isArabic = preg_match('/\p{Arabic}/u', $sub_category->name);
+
+                        if ($currentLang === 'sa' && !$isArabic) {
+                            $sub_category->name = translate($sub_category->name);
+                        }
+                        ?>
                         <div class="nav-item dropdown mega_menu_inner">
                             <a class="nav-link text-dark btn w-100 py-1 border-bottom rounded-0" style="color: #1d1d1d !important;"
-                                href="{{ route('products', ['id' => $sub_category->id, 'data_from' => 'category', 'page' => 1]) }}">{{ translate($sub_category->name) }}</a>
+                                href="{{ route('products', ['id' => $sub_category->id, 'data_from' => 'category', 'page' => 1]) }}">{{ $sub_category->name }}</a>
                             @if ($sub_category->childes->count() > 0)
                             <div class="dropdown-menu __dropdown-menu-4 __min-w-165px" style="left: -160px !important;">
                                 @foreach ($sub_category->childes as $sub_sub_category)
+                                <?php
+
+                                $currentLang = app()->getLocale(); // أو أي تحقق من اللغة
+                                $isArabic = preg_match('/\p{Arabic}/u', $sub_sub_category->name);
+
+                                if ($currentLang === 'sa' && !$isArabic) {
+                                    $sub_sub_category->name = translate($sub_sub_category->name);
+                                }
+                                ?>
                                 <div class="mega_menu_outer"><a class="text-dark btn w-100 py-1 border-bottom rounded-0"
-                                        href="{{ route('products', ['id' => $sub_sub_category->id, 'data_from' => 'category', 'page' => 1]) }}">{{ translate($sub_sub_category->name) }}</a>
+                                        href="{{ route('products', ['id' => $sub_sub_category->id, 'data_from' => 'category', 'page' => 1]) }}">{{ $sub_sub_category->name }}</a>
                                 </div>
                                 @endforeach
                             </div>
